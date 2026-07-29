@@ -29,12 +29,12 @@ export default function LoginPage() {
 
   return (
     <div className="mx-auto max-w-sm px-4 py-16">
-      <h1 className="font-display text-2xl font-black text-white">Logg inn</h1>
+      <h1 className="font-display text-2xl font-black text-white">Log in</h1>
       <p className="mt-1 text-sm text-slate-500">Gullhaug Fantasy Football</p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
-          <label className="text-xs font-semibold text-slate-400">E-post</label>
+          <label className="text-xs font-semibold text-slate-400">Email</label>
           <input
             type="email"
             required
@@ -44,7 +44,7 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label className="text-xs font-semibold text-slate-400">Passord</label>
+          <label className="text-xs font-semibold text-slate-400">Password</label>
           <input
             type="password"
             required
@@ -59,14 +59,14 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full rounded-lg bg-violet-600 py-2.5 font-bold text-white hover:bg-violet-500 disabled:opacity-50"
         >
-          {loading ? "Logger inn…" : "Logg inn"}
+          {loading ? "Logging in…" : "Log in"}
         </button>
       </form>
 
       <p className="mt-4 text-sm text-slate-500">
-        Ny bruker?{" "}
+        New here?{" "}
         <Link href="/signup" className="font-semibold text-violet-400">
-          Opprett konto
+          Create account
         </Link>
       </p>
     </div>

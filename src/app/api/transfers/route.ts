@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  if (!userData.user) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
 
   const { fantasy_team_id, gameweek_id, player_out_id, player_in_id } = (await request.json()) as {
     fantasy_team_id: string;
@@ -15,19 +15,19 @@ export async function POST(request: Request) {
 
   const { data: team } = await supabase.from("fantasy_teams").select("*").eq("id", fantasy_team_id).single();
   if (!team || team.user_id !== userData.user.id) {
-    return NextResponse.json({ error: "Fant ikke laget ditt." }, { status: 403 });
+    return NextResponse.json({ error: "Couldn't find your team." }, { status: 403 });
   }
 
   const { data: settings } = await supabase.from("season_settings").select("*").single();
   const { data: playerOut } = await supabase.from("players").select("*").eq("id", player_out_id).single();
   const { data: playerIn } = await supabase.from("players").select("*").eq("id", player_in_id).single();
-  if (!playerOut || !playerIn) return NextResponse.json({ error: "Fant ikke spillerne." }, { status: 400 });
+  if (!playerOut || !playerIn) return NextResponse.json({ error: "Couldn't find the players." }, { status: 400 });
   if (playerOut.position !== playerIn.position) {
-    return NextResponse.json({ error: "Ny spiller må ha samme posisjon." }, { status: 400 });
+    return NextResponse.json({ error: "New player must have the same position." }, { status: 400 });
   }
 
   const newBudget = Math.round((team.budget_remaining + playerOut.price - playerIn.price) * 10) / 10;
-  if (newBudget < 0) return NextResponse.json({ error: "Ikke nok budsjett til denne overgangen." }, { status: 400 });
+  if (newBudget < 0) return NextResponse.json({ error: "Not enough budget for this transfer." }, { status: 400 });
 
   const wasFree = team.free_transfers > 0;
   const pointCost = wasFree ? 0 : settings?.extra_transfer_cost ?? 3;

@@ -96,24 +96,24 @@ export default function SquadPage() {
     const body = await res.json();
     setSaving(false);
     if (!res.ok) {
-      setMessage(body.error ?? "Kunne ikke lagre laget.");
+      setMessage(body.error ?? "Couldn't save your squad.");
       return;
     }
-    setMessage("Laget er lagret!");
+    setMessage("Squad saved!");
     router.push("/lineup");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Laster…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
 
   const posPlayers = players.filter((p) => p.position === tab);
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
-      <h1 className="font-display text-2xl font-black text-white">Bygg laget ditt</h1>
+      <h1 className="font-display text-2xl font-black text-white">Build your squad</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <StatCard label="Budsjett igjen" value={`${remaining.toFixed(1)}M`} accent="violet" />
-        <StatCard label="Spillere valgt" value={`${selected.length} / 15`} accent="emerald" />
+        <StatCard label="Budget remaining" value={`${remaining.toFixed(1)}M`} accent="violet" />
+        <StatCard label="Players selected" value={`${selected.length} / 15`} accent="emerald" />
       </div>
 
       <div className="mt-4 grid grid-cols-4 gap-2">
@@ -131,7 +131,7 @@ export default function SquadPage() {
       </div>
 
       <p className="mt-3 px-1 text-xs text-slate-500">
-        Min. 2 fra Gullhaug 1 · Min. 2 fra Gullhaug 2 · Maks 4 spillere per lag
+        Min. 2 from Gullhaug 1 · Min. 2 from Gullhaug 2 · Max 4 players per team
       </p>
 
       <div className="mt-3 space-y-2">
@@ -158,7 +158,7 @@ export default function SquadPage() {
             disabled={!validation.valid || saving}
             className="w-full rounded-xl bg-emerald-500 py-3 font-bold text-slate-950 hover:bg-emerald-400 disabled:bg-slate-800 disabled:text-slate-500"
           >
-            {saving ? "Lagrer…" : "Lagre laget"}
+            {saving ? "Saving…" : "Save squad"}
           </button>
         </div>
       </div>

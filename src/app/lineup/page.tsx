@@ -118,15 +118,15 @@ export default function LineupPage() {
     });
     const body = await res.json();
     setSaving(false);
-    setMessage(res.ok ? "Startoppstilling lagret!" : body.error ?? "Noe gikk galt.");
+    setMessage(res.ok ? "Lineup saved!" : body.error ?? "Something went wrong.");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Laster…</div>;
-  if (!gameweekId) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Ingen åpen runde akkurat nå.</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
+  if (!gameweekId) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">No open gameweek right now.</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
-      <h1 className="font-display text-2xl font-black text-white">Startoppstilling</h1>
+      <h1 className="font-display text-2xl font-black text-white">Lineup</h1>
 
       <div className="mt-4 flex gap-2 overflow-x-auto">
         {Object.keys(FORMATIONS).map((f) => (
@@ -150,7 +150,7 @@ export default function LineupPage() {
       {(["GK", "DEF", "MID", "FWD"] as const).map((pos) => (
         <div key={pos} className="mt-5">
           <div className="mb-2 text-xs font-bold text-slate-500">
-            {pos} — {startCount(pos)}/{pos === "GK" ? 1 : need[pos]} i startoppstilling
+            {pos} — {startCount(pos)}/{pos === "GK" ? 1 : need[pos]} in starting XI
           </div>
           <div className="space-y-2">
             {squad
@@ -201,7 +201,7 @@ export default function LineupPage() {
       ))}
 
       <div className="mt-5">
-        <div className="mb-2 text-xs font-bold text-slate-500">Benk ({bench.length})</div>
+        <div className="mb-2 text-xs font-bold text-slate-500">Bench ({bench.length})</div>
         <div className="flex flex-wrap gap-2">
           {bench.map((p) => (
             <span key={p.id} className="rounded-lg border border-pitch-border bg-pitch-surface px-2 py-1 text-xs text-slate-400">
@@ -219,7 +219,7 @@ export default function LineupPage() {
             disabled={!lineupValid || !captain || !vice || saving}
             className="w-full rounded-xl bg-violet-600 py-3 font-bold text-white hover:bg-violet-500 disabled:bg-slate-800 disabled:text-slate-500"
           >
-            {saving ? "Lagrer…" : "Lagre startoppstilling"}
+            {saving ? "Saving…" : "Save lineup"}
           </button>
         </div>
       </div>

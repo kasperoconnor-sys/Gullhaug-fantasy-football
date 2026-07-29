@@ -112,14 +112,14 @@ export default function AdminResultsPage() {
     });
     const body = await res.json();
     setRecalculating(false);
-    setRecalcMessage(res.ok ? `Poeng oppdatert for ${body.teams_scored} lag.` : body.error);
+    setRecalcMessage(res.ok ? `Points updated for ${body.teams_scored} teams.` : body.error);
   }
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-black text-white">Registrer resultater</h1>
+      <h1 className="font-display text-2xl font-black text-white">Enter Results</h1>
       <p className="mt-1 text-sm text-slate-500">
-        Manuell inntasting (fallback når Min Fotball ikke kan hentes automatisk). Assists telles kun for Gullhaug-spillere.
+        Manual entry (fallback for when Min Fotball data can't be pulled automatically). Assists are only tracked for Gullhaug players.
       </p>
 
       <select
@@ -129,7 +129,7 @@ export default function AdminResultsPage() {
       >
         {fixtures.map((f) => (
           <option key={f.id} value={f.id}>
-            Runde {f.gameweek?.number}: {f.home_team?.name} vs {f.away_team?.name}
+            Gameweek {f.gameweek?.number}: {f.home_team?.name} vs {f.away_team?.name}
           </option>
         ))}
       </select>
@@ -148,22 +148,22 @@ export default function AdminResultsPage() {
             {Object.values(rosterStats).map((s: any) => (
               <div key={s.player.id} className="grid grid-cols-2 gap-2 rounded-xl border border-pitch-border bg-pitch-surface p-3 sm:grid-cols-8 sm:items-center">
                 <span className="col-span-2 text-sm font-semibold text-white sm:col-span-2">{s.player.name}</span>
-                <NumField label="Min" value={s.minutes_played} onChange={(v) => updateStat(s.player.id, "minutes_played", v)} />
-                <NumField label="Mål" value={s.goals} onChange={(v) => updateStat(s.player.id, "goals", v)} />
+                <NumField label="Mins" value={s.minutes_played} onChange={(v) => updateStat(s.player.id, "minutes_played", v)} />
+                <NumField label="Goals" value={s.goals} onChange={(v) => updateStat(s.player.id, "goals", v)} />
                 {s.player.team?.is_gullhaug && <NumField label="Assist" value={s.assists} onChange={(v) => updateStat(s.player.id, "assists", v)} />}
-                <NumField label="Gult" value={s.yellow_cards} onChange={(v) => updateStat(s.player.id, "yellow_cards", v)} />
-                <NumField label="Rødt" value={s.red_cards} onChange={(v) => updateStat(s.player.id, "red_cards", v)} />
-                <NumField label="Selvmål" value={s.own_goals} onChange={(v) => updateStat(s.player.id, "own_goals", v)} />
+                <NumField label="Yellow" value={s.yellow_cards} onChange={(v) => updateStat(s.player.id, "yellow_cards", v)} />
+                <NumField label="Red" value={s.red_cards} onChange={(v) => updateStat(s.player.id, "red_cards", v)} />
+                <NumField label="Own goals" value={s.own_goals} onChange={(v) => updateStat(s.player.id, "own_goals", v)} />
               </div>
             ))}
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <button onClick={saveResult} className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
-              Lagre resultat og statistikk
+              Save result & stats
             </button>
             <button onClick={recalculate} disabled={recalculating} className="flex items-center gap-1 rounded-lg bg-violet-600 px-4 py-2 text-sm font-bold text-white hover:bg-violet-500 disabled:opacity-50">
-              <RefreshCw size={14} className={recalculating ? "animate-spin" : ""} /> Oppdater fantasy-poeng
+              <RefreshCw size={14} className={recalculating ? "animate-spin" : ""} /> Update fantasy points
             </button>
             {recalcMessage && <span className="text-sm text-emerald-400">{recalcMessage}</span>}
           </div>

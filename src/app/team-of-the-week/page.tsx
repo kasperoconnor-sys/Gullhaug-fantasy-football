@@ -12,17 +12,17 @@ export default async function TeamOfTheWeekPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Ukens lag</h1>
-      <p className="mt-1 text-sm text-slate-500">Historikk over alle runders beste lag.</p>
+      <h1 className="font-display text-2xl font-black text-white">Team of the Week</h1>
+      <p className="mt-1 text-sm text-slate-500">Archive of every gameweek's best XI.</p>
 
       <div className="mt-6 space-y-6">
         {(archive ?? []).map((totw: any) => (
           <div key={totw.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-violet-600/10 to-emerald-600/10 p-5">
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-lg font-bold text-white">Runde {totw.gameweek?.number}</h2>
+              <h2 className="font-display text-lg font-bold text-white">Gameweek {totw.gameweek?.number}</h2>
               <span className="font-mono text-sm text-slate-400">{totw.formation}</span>
             </div>
-            <div className="mt-1 font-mono text-3xl font-black text-white">{totw.total_points} poeng</div>
+            <div className="mt-1 font-mono text-3xl font-black text-white">{totw.total_points} points</div>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {totw.players.map((tp: any) => (
                 <div key={tp.id} className="flex items-center justify-between rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2">
@@ -36,7 +36,7 @@ export default async function TeamOfTheWeekPage() {
           </div>
         ))}
         {(!archive || archive.length === 0) && (
-          <p className="text-sm text-slate-500">Ukens lag genereres automatisk etter at en runde er fullført.</p>
+          <p className="text-sm text-slate-500">Team of the Week is generated automatically once a gameweek is completed.</p>
         )}
       </div>
     </div>

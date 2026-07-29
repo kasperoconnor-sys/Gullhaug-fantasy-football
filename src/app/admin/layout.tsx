@@ -3,12 +3,12 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 const ADMIN_LINKS = [
-  { href: "/admin", label: "Oversikt" },
-  { href: "/admin/teams", label: "Lag" },
-  { href: "/admin/players", label: "Spillere" },
-  { href: "/admin/fixtures", label: "Kamper" },
-  { href: "/admin/results", label: "Registrer resultater" },
-  { href: "/admin/gameweeks", label: "Runder" },
+  { href: "/admin", label: "Overview" },
+  { href: "/admin/teams", label: "Teams" },
+  { href: "/admin/players", label: "Players" },
+  { href: "/admin/fixtures", label: "Fixtures" },
+  { href: "/admin/results", label: "Enter Results" },
+  { href: "/admin/gameweeks", label: "Gameweeks" },
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

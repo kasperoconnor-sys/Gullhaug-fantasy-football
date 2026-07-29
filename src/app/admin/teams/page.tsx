@@ -38,17 +38,17 @@ export default function AdminTeamsPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-black text-white">Lag</h1>
+      <h1 className="font-display text-2xl font-black text-white">Teams</h1>
 
       <div className="mt-4 flex flex-wrap items-end gap-2 rounded-xl border border-pitch-border bg-pitch-surface p-4">
-        <Field label="Navn" value={name} onChange={setName} />
-        <Field label="Kortnavn" value={shortName} onChange={setShortName} />
+        <Field label="Name" value={name} onChange={setName} />
+        <Field label="Short name" value={shortName} onChange={setShortName} />
         <label className="flex items-center gap-2 pb-2 text-sm text-slate-300">
           <input type="checkbox" checked={isGullhaug} onChange={(e) => setIsGullhaug(e.target.checked)} />
-          Gullhaug-lag
+          Gullhaug team
         </label>
         <button onClick={addTeam} className="flex items-center gap-1 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
-          <Plus size={14} /> Legg til
+          <Plus size={14} /> Add
         </button>
       </div>
 

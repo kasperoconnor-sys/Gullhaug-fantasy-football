@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   const { data: profile } = userData.user
     ? await supabase.from("profiles").select("is_admin").eq("id", userData.user.id).single()
     : { data: null };
-  if (!profile?.is_admin) return NextResponse.json({ error: "Kun admin kan gjøre dette." }, { status: 403 });
+  if (!profile?.is_admin) return NextResponse.json({ error: "Only admins can do this." }, { status: 403 });
 
   const { gameweek_id } = (await request.json()) as { gameweek_id: string };
   const db = createServiceClient();

@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  if (!userData.user) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
 
   const { fantasy_team_id, player_ids } = (await request.json()) as {
     fantasy_team_id: string;
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   // Confirm the fantasy team belongs to the caller (defense in depth; RLS also enforces this).
   const { data: team } = await supabase.from("fantasy_teams").select("*").eq("id", fantasy_team_id).single();
   if (!team || team.user_id !== userData.user.id) {
-    return NextResponse.json({ error: "Fant ikke laget ditt." }, { status: 403 });
+    return NextResponse.json({ error: "Couldn't find your team." }, { status: 403 });
   }
 
   const [{ data: settings }, { data: playerRows }, { data: gullhaugTeams }] = await Promise.all([

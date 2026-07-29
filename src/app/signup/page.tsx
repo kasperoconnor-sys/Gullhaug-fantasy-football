@@ -23,7 +23,7 @@ export default function SignupPage() {
     const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
     if (signUpError || !data.user) {
       setLoading(false);
-      setError(signUpError?.message ?? "Kunne ikke opprette bruker.");
+      setError(signUpError?.message ?? "Couldn't create user.");
       return;
     }
 
@@ -56,28 +56,28 @@ export default function SignupPage() {
 
   return (
     <div className="mx-auto max-w-sm px-4 py-16">
-      <h1 className="font-display text-2xl font-black text-white">Opprett konto</h1>
-      <p className="mt-1 text-sm text-slate-500">Bli manager i Gullhaug Fantasy Football</p>
+      <h1 className="font-display text-2xl font-black text-white">Create account</h1>
+      <p className="mt-1 text-sm text-slate-500">Become a manager in Gullhaug Fantasy Football</p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        <Field label="Ditt navn" value={displayName} onChange={setDisplayName} />
-        <Field label="Lagnavn" value={teamName} onChange={setTeamName} placeholder="F.eks. Gullhaug Giants" />
-        <Field label="E-post" value={email} onChange={setEmail} type="email" />
-        <Field label="Passord" value={password} onChange={setPassword} type="password" />
+        <Field label="Your name" value={displayName} onChange={setDisplayName} />
+        <Field label="Team name" value={teamName} onChange={setTeamName} placeholder="e.g. Gullhaug Giants" />
+        <Field label="Email" value={email} onChange={setEmail} type="email" />
+        <Field label="Password" value={password} onChange={setPassword} type="password" />
         {error && <p className="text-sm text-rose-400">{error}</p>}
         <button
           type="submit"
           disabled={loading}
           className="w-full rounded-lg bg-emerald-500 py-2.5 font-bold text-slate-950 hover:bg-emerald-400 disabled:opacity-50"
         >
-          {loading ? "Oppretter…" : "Opprett konto"}
+          {loading ? "Creating…" : "Create account"}
         </button>
       </form>
 
       <p className="mt-4 text-sm text-slate-500">
-        Har du allerede konto?{" "}
+        Already have an account?{" "}
         <Link href="/login" className="font-semibold text-violet-400">
-          Logg inn
+          Log in
         </Link>
       </p>
     </div>

@@ -26,9 +26,9 @@ export default async function LeagueDetailPage({ params }: { params: { id: strin
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       <h1 className="font-display text-2xl font-black text-white">{league?.name}</h1>
-      <p className="mt-1 font-mono text-xs text-slate-500">Invitasjonskode: {league?.invite_code}</p>
+      <p className="mt-1 font-mono text-xs text-slate-500">Invite code: {league?.invite_code}</p>
 
-      <h2 className="mt-6 text-sm font-bold text-slate-400">Sammenlagt</h2>
+      <h2 className="mt-6 text-sm font-bold text-slate-400">Overall</h2>
       <div className="mt-2 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
         {standings.map((s, i) => (
           <div key={s.team.id} className="flex items-center justify-between px-4 py-3">
@@ -41,7 +41,7 @@ export default async function LeagueDetailPage({ params }: { params: { id: strin
             <span className="font-mono text-sm font-bold text-emerald-400">{s.total} p</span>
           </div>
         ))}
-        {standings.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">Ingen medlemmer ennå.</p>}
+        {standings.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">No members yet.</p>}
       </div>
     </div>
   );

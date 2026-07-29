@@ -12,16 +12,16 @@ export default async function AdminOverview() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-black text-white">Admin-oversikt</h1>
+      <h1 className="font-display text-2xl font-black text-white">Admin Overview</h1>
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatCard label="Lag" value={teamCount ?? 0} />
-        <StatCard label="Spillere" value={playerCount ?? 0} accent="emerald" />
-        <StatCard label="Managere" value={managerCount ?? 0} />
-        <StatCard label="Aktiv runde" value={currentGw?.number ?? "–"} accent="emerald" />
+        <StatCard label="Teams" value={teamCount ?? 0} />
+        <StatCard label="Players" value={playerCount ?? 0} accent="emerald" />
+        <StatCard label="Managers" value={managerCount ?? 0} />
+        <StatCard label="Active gameweek" value={currentGw?.number ?? "–"} accent="emerald" />
       </div>
       <p className="mt-6 text-sm text-slate-500">
-        Bruk menyen til venstre for å legge inn lag, spillere, kamper og resultater. Poeng oppdateres automatisk
-        når du registrerer resultater under "Registrer resultater".
+        Use the menu on the left to add teams, players, fixtures, and results. Points update automatically
+        whenever you enter results under "Enter Results".
       </p>
     </div>
   );

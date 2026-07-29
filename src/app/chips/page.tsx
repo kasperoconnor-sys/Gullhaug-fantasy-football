@@ -7,10 +7,10 @@ import { ChipType } from "@/types";
 import { Zap, Shield, TrendingUp, Plane } from "lucide-react";
 
 const CHIPS: { id: ChipType; name: string; description: string; icon: any }[] = [
-  { id: "wildcard", name: "Wildcard", description: "Ubegrenset gratis overganger denne runden.", icon: Zap },
-  { id: "goal_rush", name: "Goal Rush", description: "Hvert mål dine spillere scorer gir +2 ekstra poeng.", icon: TrendingUp },
-  { id: "super_defence", name: "Super Defence", description: "Keepere og forsvarsspillere får +2 ekstra for clean sheet.", icon: Shield },
-  { id: "away_advantage", name: "Away Advantage", description: "Spillere på bortelag som vinner får +2 poeng.", icon: Plane },
+  { id: "wildcard", name: "Wildcard", description: "Unlimited free transfers this gameweek.", icon: Zap },
+  { id: "goal_rush", name: "Goal Rush", description: "Every goal your players score is worth +2 extra points.", icon: TrendingUp },
+  { id: "super_defence", name: "Super Defence", description: "Goalkeepers and defenders get +2 extra for a clean sheet.", icon: Shield },
+  { id: "away_advantage", name: "Away Advantage", description: "Players on an away team that wins get +2 points.", icon: Plane },
 ];
 
 export default function ChipsPage() {
@@ -59,19 +59,19 @@ export default function ChipsPage() {
     });
     const body = await res.json();
     if (!res.ok) {
-      setMessage(body.error ?? "Kunne ikke aktivere chip.");
+      setMessage(body.error ?? "Couldn't activate chip.");
       return;
     }
     setUsed([...used, chip]);
-    setMessage(`${chip} er aktivert for denne runden!`);
+    setMessage(`${chip} is activated for this gameweek!`);
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Laster…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       <h1 className="font-display text-2xl font-black text-white">Chips</h1>
-      <p className="mt-1 text-sm text-slate-500">Hver chip kan kun brukes én gang per sesong.</p>
+      <p className="mt-1 text-sm text-slate-500">Each chip can only be used once per season.</p>
 
       {message && <p className="mt-3 text-sm text-emerald-400">{message}</p>}
 
@@ -90,7 +90,7 @@ export default function ChipsPage() {
                 disabled={isUsed}
                 className="mt-3 w-full rounded-lg bg-violet-600 py-2 text-sm font-bold text-white hover:bg-violet-500 disabled:bg-slate-800 disabled:text-slate-500"
               >
-                {isUsed ? "Allerede brukt" : "Aktiver for denne runden"}
+                {isUsed ? "Already used" : "Activate for this gameweek"}
               </button>
             </div>
           );

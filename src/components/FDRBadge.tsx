@@ -1,9 +1,9 @@
 const LABELS: Record<number, string> = {
-  1: "Meget lett",
-  2: "Lett",
-  3: "Middels",
-  4: "Vanskelig",
-  5: "Meget vanskelig",
+  1: "Very easy",
+  2: "Easy",
+  3: "Average",
+  4: "Difficult",
+  5: "Very difficult",
 };
 
 export default function FDRBadge({ rating, showLabel = false }: { rating: number; showLabel?: boolean }) {

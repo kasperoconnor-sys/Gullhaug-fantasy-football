@@ -55,20 +55,20 @@ export default function AdminFixturesPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-black text-white">Kamper</h1>
+      <h1 className="font-display text-2xl font-black text-white">Fixtures</h1>
 
       <div className="mt-4 grid gap-2 rounded-xl border border-pitch-border bg-pitch-surface p-4 sm:grid-cols-3">
-        <Select label="Runde" value={gwId} onChange={setGwId} options={gameweeks.map((g) => ({ value: g.id, label: `Runde ${g.number}` }))} />
-        <Select label="Hjemmelag" value={homeId} onChange={setHomeId} options={teams.map((t) => ({ value: t.id, label: t.name }))} />
-        <Select label="Bortelag" value={awayId} onChange={setAwayId} options={teams.map((t) => ({ value: t.id, label: t.name }))} />
+        <Select label="Gameweek" value={gwId} onChange={setGwId} options={gameweeks.map((g) => ({ value: g.id, label: `Gameweek ${g.number}` }))} />
+        <Select label="Home team" value={homeId} onChange={setHomeId} options={teams.map((t) => ({ value: t.id, label: t.name }))} />
+        <Select label="Away team" value={awayId} onChange={setAwayId} options={teams.map((t) => ({ value: t.id, label: t.name }))} />
         <div>
-          <label className="text-xs text-slate-500">Kampstart</label>
+          <label className="text-xs text-slate-500">Kickoff</label>
           <input type="datetime-local" value={kickoff} onChange={(e) => setKickoff(e.target.value)} className="mt-1 block w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-white outline-none focus:border-violet-500" />
         </div>
-        <Select label="FDR hjemmelag" value={String(homeFdr)} onChange={(v) => setHomeFdr(Number(v))} options={[1, 2, 3, 4, 5].map((n) => ({ value: String(n), label: String(n) }))} />
-        <Select label="FDR bortelag" value={String(awayFdr)} onChange={(v) => setAwayFdr(Number(v))} options={[1, 2, 3, 4, 5].map((n) => ({ value: String(n), label: String(n) }))} />
+        <Select label="FDR home team" value={String(homeFdr)} onChange={(v) => setHomeFdr(Number(v))} options={[1, 2, 3, 4, 5].map((n) => ({ value: String(n), label: String(n) }))} />
+        <Select label="FDR away team" value={String(awayFdr)} onChange={(v) => setAwayFdr(Number(v))} options={[1, 2, 3, 4, 5].map((n) => ({ value: String(n), label: String(n) }))} />
         <button onClick={addFixture} className="flex items-center justify-center gap-1 self-end rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
-          <Plus size={14} /> Legg til kamp
+          <Plus size={14} /> Add fixture
         </button>
       </div>
 
@@ -76,9 +76,9 @@ export default function AdminFixturesPage() {
         {fixtures.map((f) => (
           <div key={f.id} className="flex items-center justify-between px-4 py-2.5 text-sm text-white">
             <span>
-              Runde {f.gameweek?.number}: {f.home_team?.name} <FDRBadge rating={f.home_fdr} /> vs {f.away_team?.name} <FDRBadge rating={f.away_fdr} />
+              Gameweek {f.gameweek?.number}: {f.home_team?.name} <FDRBadge rating={f.home_fdr} /> vs {f.away_team?.name} <FDRBadge rating={f.away_fdr} />
             </span>
-            <span className="font-mono text-xs text-slate-500">{new Date(f.kickoff_at).toLocaleString("no-NO")}</span>
+            <span className="font-mono text-xs text-slate-500">{new Date(f.kickoff_at).toLocaleString("en-GB")}</span>
           </div>
         ))}
       </div>

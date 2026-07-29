@@ -9,7 +9,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  if (!userData.user) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
 
   const { lineup_id, new_captain_player_id } = (await request.json()) as {
     lineup_id: string;
@@ -23,12 +23,12 @@ export async function POST(request: Request) {
     .single();
 
   if (!lineup || lineup.fantasy_team.user_id !== userData.user.id) {
-    return NextResponse.json({ error: "Fant ikke startoppstillingen." }, { status: 403 });
+    return NextResponse.json({ error: "Couldn't find the lineup." }, { status: 403 });
   }
 
   const isStarter = lineup.slots.some((s: any) => s.player_id === new_captain_player_id && s.is_starter);
   if (!isStarter) {
-    return NextResponse.json({ error: "Ny kaptein må være i startoppstillingen." }, { status: 400 });
+    return NextResponse.json({ error: "New captain must be in the starting XI." }, { status: 400 });
   }
 
   // Find the candidate's fixture this gameweek via their real-life team.
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     .maybeSingle();
 
   if (fixture && !canChangeCaptain(fixture.kickoff_at)) {
-    return NextResponse.json({ error: "Denne spilleren har allerede startet kampen sin." }, { status: 400 });
+    return NextResponse.json({ error: "This player's match has already kicked off." }, { status: 400 });
   }
 
   const { error } = await supabase

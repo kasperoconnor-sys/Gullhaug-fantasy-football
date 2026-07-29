@@ -51,40 +51,40 @@ export default async function StatisticsPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Statistikk</h1>
+      <h1 className="font-display text-2xl font-black text-white">Statistics</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <StatCard label="Managere" value={managerCount} />
-        <StatCard label="Spillere i puljen" value={players?.length ?? 0} accent="emerald" />
-        <StatCard label="Differensialer" value={differentials.length} />
+        <StatCard label="Managers" value={managerCount} />
+        <StatCard label="Players in pool" value={players?.length ?? 0} accent="emerald" />
+        <StatCard label="Differentials" value={differentials.length} />
       </div>
 
-      <Section title="Høyest scorende spillere">
+      <Section title="Top scoring players">
         {topScorers.map((p, i) => (
           <Row key={p.id} rank={i + 1} label={p.name} sub={p.team?.name} value={`${p.totalPoints} p`} />
         ))}
       </Section>
 
-      <Section title="Høyest scorende managere">
+      <Section title="Top scoring managers">
         {topManagers.map((t, i) => (
           <Row key={t.id} rank={i + 1} label={t.team_name} value={`${t.total} p`} />
         ))}
       </Section>
 
-      <Section title="Mest valgte spillere">
+      <Section title="Most selected players">
         {mostOwned.map((p, i) => (
           <Row key={p.id} rank={i + 1} label={p.name} sub={p.team?.name} value={`${p.ownershipPct}%`} />
         ))}
       </Section>
 
-      <Section title="Toppdifferensialer (under 5% eid)">
+      <Section title="Top differentials (under 5% owned)">
         {differentials.map((p, i) => (
           <Row key={p.id} rank={i + 1} label={p.name} sub={p.team?.name} value={`${p.totalPoints} p · ${p.ownershipPct}%`} />
         ))}
-        {differentials.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">Ingen differensialer ennå.</p>}
+        {differentials.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">No differentials yet.</p>}
       </Section>
 
-      <Section title="Kommende kamper — vanskelighetsgrad (FDR)">
+      <Section title="Upcoming fixtures — difficulty (FDR)">
         <div className="space-y-2 p-4">
           {(upcomingFixtures ?? []).map((f: any) => (
             <div key={f.id} className="flex items-center justify-between text-sm text-white">

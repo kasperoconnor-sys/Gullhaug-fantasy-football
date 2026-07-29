@@ -40,18 +40,18 @@ export default async function HomePage() {
             <span className="text-sm font-bold uppercase tracking-widest">Gullhaug Fantasy Football</span>
           </div>
           <h1 className="mt-3 max-w-2xl font-display text-4xl font-black leading-tight text-white md:text-5xl">
-            Bygg laget. Velg kapteinen. Slå kompisene dine.
+            Build your squad. Pick your captain. Beat your mates.
           </h1>
           <p className="mt-3 max-w-xl text-slate-400">
-            Fantasy football for Gullhaug 1, Gullhaug 2 og alle lagene vi møter i seriene våre.
-            {currentGw ? ` Runde ${currentGw.number} er ${currentGw.status === "open" ? "åpen" : "i gang"}.` : ""}
+            Fantasy football for Gullhaug 1, Gullhaug 2, and every team we play in our leagues.
+            {currentGw ? ` Gameweek ${currentGw.number} is ${currentGw.status === "open" ? "open" : "in progress"}.` : ""}
           </p>
           <div className="mt-6 flex gap-3">
             <Link href="/squad" className="rounded-lg bg-emerald-500 px-5 py-3 font-bold text-slate-950 hover:bg-emerald-400">
-              Bygg laget mitt
+              Build my team
             </Link>
             <Link href="/statistics" className="rounded-lg border border-pitch-border px-5 py-3 font-bold text-white hover:bg-pitch-surface">
-              Se statistikk
+              See statistics
             </Link>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="font-display text-xl font-bold text-white">
-          {currentGw ? `Kamper — runde ${currentGw.number}` : "Ingen aktiv runde"}
+          {currentGw ? `Fixtures — Gameweek ${currentGw.number}` : "No active gameweek"}
         </h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {(fixtures ?? []).map((f: any) => (
@@ -71,7 +71,7 @@ export default async function HomePage() {
                   <FDRBadge rating={f.home_fdr} />
                 </div>
                 <span className="font-mono text-xs text-slate-500">
-                  {f.is_final ? `${f.home_score}–${f.away_score}` : new Date(f.kickoff_at).toLocaleDateString("no-NO")}
+                  {f.is_final ? `${f.home_score}–${f.away_score}` : new Date(f.kickoff_at).toLocaleDateString("en-GB")}
                 </span>
               </div>
               <div className="mt-2 flex items-center gap-2 text-sm font-semibold text-white">
@@ -82,7 +82,7 @@ export default async function HomePage() {
             </div>
           ))}
           {(!fixtures || fixtures.length === 0) && (
-            <p className="text-sm text-slate-500">Ingen kamper lagt inn for øyeblikket.</p>
+            <p className="text-sm text-slate-500">No fixtures added yet.</p>
           )}
         </div>
       </section>
@@ -91,15 +91,15 @@ export default async function HomePage() {
         <section className="mx-auto max-w-6xl px-4 pb-16">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-xl font-bold text-white">
-              Ukens lag — runde {latestTotw.gameweek?.number}
+              Team of the Week — Gameweek {latestTotw.gameweek?.number}
             </h2>
             <Link href="/team-of-the-week" className="flex items-center gap-1 text-sm font-semibold text-violet-400">
-              Se alle <ArrowRight size={14} />
+              See all <ArrowRight size={14} />
             </Link>
           </div>
           <div className="mt-3 rounded-xl border border-pitch-border bg-gradient-to-br from-violet-600/20 to-emerald-600/20 p-4">
-            <div className="text-sm text-slate-300">Formasjon: {latestTotw.formation}</div>
-            <div className="mt-1 font-mono text-3xl font-black text-white">{latestTotw.total_points} poeng</div>
+            <div className="text-sm text-slate-300">Formation: {latestTotw.formation}</div>
+            <div className="mt-1 font-mono text-3xl font-black text-white">{latestTotw.total_points} points</div>
           </div>
         </section>
       )}

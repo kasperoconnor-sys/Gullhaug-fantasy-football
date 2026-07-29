@@ -11,7 +11,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  if (!userData.user) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
 
   const { lineup_id, player_out_id, player_in_id } = (await request.json()) as {
     lineup_id: string;
@@ -26,13 +26,13 @@ export async function POST(request: Request) {
     .single();
 
   if (!lineup || lineup.fantasy_team.user_id !== userData.user.id) {
-    return NextResponse.json({ error: "Fant ikke startoppstillingen." }, { status: 403 });
+    return NextResponse.json({ error: "Couldn't find the lineup." }, { status: 403 });
   }
 
   const outSlot = lineup.slots.find((s: any) => s.player_id === player_out_id && s.is_starter);
   const inSlot = lineup.slots.find((s: any) => s.player_id === player_in_id && !s.is_starter);
   if (!outSlot || !inSlot) {
-    return NextResponse.json({ error: "Ugyldig bytte — sjekk at spillerne er henholdsvis i start og på benken." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid substitution — check the players are in the starting XI and on the bench respectively." }, { status: 400 });
   }
 
   const { data: incomingPlayer } = await supabase.from("players").select("team_id, position").eq("id", player_in_id).single();
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     .maybeSingle();
 
   if (fixture && !canMakeSubstitution(fixture.kickoff_at)) {
-    return NextResponse.json({ error: "Den innkommende spillerens kamp har allerede startet." }, { status: 400 });
+    return NextResponse.json({ error: "The incoming player's match has already kicked off." }, { status: 400 });
   }
 
   // Recompute formation counts after the swap.
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     }
   });
   if (!isValidFormationCounts(counts, FORMATIONS[lineup.formation])) {
-    return NextResponse.json({ error: "Dette byttet gir en ugyldig formasjon." }, { status: 400 });
+    return NextResponse.json({ error: "This substitution results in an invalid formation." }, { status: 400 });
   }
 
   await supabase.from("gameweek_lineup_slots").update({ is_starter: false, bench_order: 1 }).eq("id", outSlot.id);

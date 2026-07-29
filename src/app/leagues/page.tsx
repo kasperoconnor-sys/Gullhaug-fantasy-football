@@ -57,7 +57,7 @@ export default function LeaguesPage() {
     await supabase.from("league_members").insert({ league_id: league.id, fantasy_team_id: fantasyTeamId });
     setLeagues([...leagues, league]);
     setNewLeagueName("");
-    setMessage(`Liga opprettet! Invitasjonskode: ${code}`);
+    setMessage(`League created! Invite code: ${code}`);
   }
 
   async function joinLeague() {
@@ -70,50 +70,50 @@ export default function LeaguesPage() {
     });
     const body = await res.json();
     if (!res.ok) {
-      setMessage(body.error ?? "Kunne ikke bli med i liga.");
+      setMessage(body.error ?? "Couldn't join league.");
       return;
     }
     setLeagues([...leagues, body.league]);
     setInviteCode("");
-    setMessage(`Du er nå med i ${body.league.name}!`);
+    setMessage(`You're now in ${body.league.name}!`);
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Laster…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Ligaer</h1>
+      <h1 className="font-display text-2xl font-black text-white">Leagues</h1>
 
       {message && <p className="mt-3 text-sm text-emerald-400">{message}</p>}
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <div className="rounded-xl border border-pitch-border bg-pitch-surface p-4">
-          <h2 className="text-sm font-bold text-white">Opprett ny liga</h2>
+          <h2 className="text-sm font-bold text-white">Create new league</h2>
           <input
             value={newLeagueName}
             onChange={(e) => setNewLeagueName(e.target.value)}
-            placeholder="Ligaens navn"
+            placeholder="League name"
             className="mt-2 w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-white outline-none focus:border-violet-500"
           />
           <button onClick={createLeague} className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-violet-600 py-2 text-sm font-bold text-white hover:bg-violet-500">
-            <Plus size={14} /> Opprett
+            <Plus size={14} /> Create
           </button>
         </div>
         <div className="rounded-xl border border-pitch-border bg-pitch-surface p-4">
-          <h2 className="text-sm font-bold text-white">Bli med med kode</h2>
+          <h2 className="text-sm font-bold text-white">Join with a code</h2>
           <input
             value={inviteCode}
             onChange={(e) => setInviteCode(e.target.value)}
-            placeholder="Invitasjonskode"
+            placeholder="Invite code"
             className="mt-2 w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-white outline-none focus:border-violet-500"
           />
           <button onClick={joinLeague} className="mt-2 w-full rounded-lg bg-emerald-500 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
-            Bli med
+            Join
           </button>
         </div>
       </div>
 
-      <h2 className="mt-8 text-sm font-bold text-slate-400">Dine ligaer</h2>
+      <h2 className="mt-8 text-sm font-bold text-slate-400">Your leagues</h2>
       <div className="mt-2 space-y-2">
         {leagues.map((l) => (
           <Link key={l.id} href={`/leagues/${l.id}`} className="flex items-center justify-between rounded-xl border border-pitch-border bg-pitch-surface px-4 py-3 hover:border-violet-500/50">
@@ -124,7 +124,7 @@ export default function LeaguesPage() {
             <span className="font-mono text-xs text-slate-500">{l.invite_code}</span>
           </Link>
         ))}
-        {leagues.length === 0 && <p className="text-sm text-slate-500">Du er ikke med i noen ligaer ennå.</p>}
+        {leagues.length === 0 && <p className="text-sm text-slate-500">You're not in any leagues yet.</p>}
       </div>
     </div>
   );

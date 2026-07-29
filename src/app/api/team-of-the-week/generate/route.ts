@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const { data: profile } = userData.user
     ? await supabase.from("profiles").select("is_admin").eq("id", userData.user.id).single()
     : { data: null };
-  if (!profile?.is_admin) return NextResponse.json({ error: "Kun admin kan gjøre dette." }, { status: 403 });
+  if (!profile?.is_admin) return NextResponse.json({ error: "Only admins can do this." }, { status: 403 });
 
   const { gameweek_id } = (await request.json()) as { gameweek_id: string };
   const db = createServiceClient();
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     if (!best || total > best.total) best = { formation, picks, total };
   }
 
-  if (!best) return NextResponse.json({ error: "Ikke nok data til å generere ukens lag." }, { status: 400 });
+  if (!best) return NextResponse.json({ error: "Not enough data to generate Team of the Week." }, { status: 400 });
 
   const topScorer = best.picks.reduce((a, b) => (b.points > a.points ? b : a));
 

@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  if (!userData.user) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
 
   const body = await request.json();
   const { fantasy_team_id, gameweek_id, formation, starters, bench, captain_player_id, vice_captain_player_id } = body as {
@@ -21,12 +21,12 @@ export async function POST(request: Request) {
 
   const { data: team } = await supabase.from("fantasy_teams").select("*").eq("id", fantasy_team_id).single();
   if (!team || team.user_id !== userData.user.id) {
-    return NextResponse.json({ error: "Fant ikke laget ditt." }, { status: 403 });
+    return NextResponse.json({ error: "Couldn't find your team." }, { status: 403 });
   }
 
   const { data: gw } = await supabase.from("gameweeks").select("*").eq("id", gameweek_id).single();
   if (!gw || gw.status === "locked" || gw.status === "completed") {
-    return NextResponse.json({ error: "Runden er låst for endringer." }, { status: 400 });
+    return NextResponse.json({ error: "This gameweek is locked for changes." }, { status: 400 });
   }
 
   const { data: squadPlayers } = await supabase
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     .eq("fantasy_team_id", fantasy_team_id);
   const squadIds = new Set((squadPlayers ?? []).map((r: any) => r.player.id));
   if (![...starters, ...bench].every((id) => squadIds.has(id))) {
-    return NextResponse.json({ error: "Ugyldig spiller i laget." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid player in squad." }, { status: 400 });
   }
 
   const positions = new Map((squadPlayers ?? []).map((r: any) => [r.player.id, r.player.position]));
@@ -45,10 +45,10 @@ export async function POST(request: Request) {
     counts[pos]++;
   });
   if (!isValidFormationCounts(counts, FORMATIONS[formation])) {
-    return NextResponse.json({ error: "Ugyldig formasjon for valgt startoppstilling." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid formation for the selected lineup." }, { status: 400 });
   }
   if (!starters.includes(captain_player_id) || !starters.includes(vice_captain_player_id)) {
-    return NextResponse.json({ error: "Kaptein og visekaptein må være i startoppstillingen." }, { status: 400 });
+    return NextResponse.json({ error: "Captain and vice-captain must be in the starting XI." }, { status: 400 });
   }
 
   const { data: lineup, error: lineupError } = await supabase

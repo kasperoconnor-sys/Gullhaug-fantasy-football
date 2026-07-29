@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  if (!userData.user) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
 
   const { fantasy_team_id, gameweek_id, chip } = (await request.json()) as {
     fantasy_team_id: string;
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
   const { data: team } = await supabase.from("fantasy_teams").select("*").eq("id", fantasy_team_id).single();
   if (!team || team.user_id !== userData.user.id) {
-    return NextResponse.json({ error: "Fant ikke laget ditt." }, { status: 403 });
+    return NextResponse.json({ error: "Couldn't find your team." }, { status: 403 });
   }
 
   const { data: existingUsage } = await supabase
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     .eq("chip", chip)
     .maybeSingle();
   if (existingUsage) {
-    return NextResponse.json({ error: "Denne chippen er allerede brukt denne sesongen." }, { status: 400 });
+    return NextResponse.json({ error: "This chip has already been used this season." }, { status: 400 });
   }
 
   const { data: activeThisGw } = await supabase
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     .not("active_chip", "is", null)
     .maybeSingle();
   if (activeThisGw) {
-    return NextResponse.json({ error: "Du har allerede en chip aktiv denne runden." }, { status: 400 });
+    return NextResponse.json({ error: "You already have a chip active this gameweek." }, { status: 400 });
   }
 
   const { error: usageError } = await supabase.from("chip_usages").insert({ fantasy_team_id, chip, gameweek_id });

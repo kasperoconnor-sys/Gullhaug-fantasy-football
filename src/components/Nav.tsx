@@ -6,13 +6,13 @@ import { createClient } from "@/lib/supabase/client";
 import { Trophy, Menu, X } from "lucide-react";
 
 const LINKS = [
-  { href: "/squad", label: "Laget mitt" },
-  { href: "/lineup", label: "Startoppstilling" },
-  { href: "/transfers", label: "Overganger" },
+  { href: "/squad", label: "My Team" },
+  { href: "/lineup", label: "Lineup" },
+  { href: "/transfers", label: "Transfers" },
   { href: "/chips", label: "Chips" },
-  { href: "/leagues", label: "Ligaer" },
-  { href: "/statistics", label: "Statistikk" },
-  { href: "/team-of-the-week", label: "Ukens lag" },
+  { href: "/leagues", label: "Leagues" },
+  { href: "/statistics", label: "Statistics" },
+  { href: "/team-of-the-week", label: "Team of the Week" },
 ];
 
 export default function Nav() {
@@ -43,16 +43,16 @@ export default function Nav() {
         <div className="hidden md:block">
           {signedIn ? (
             <Link href="/api/auth/signout" className="text-sm font-semibold text-slate-400 hover:text-white">
-              Logg ut
+              Log out
             </Link>
           ) : (
             <Link href="/login" className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-bold text-white hover:bg-violet-500">
-              Logg inn
+              Log in
             </Link>
           )}
         </div>
 
-        <button className="md:hidden text-white" onClick={() => setOpen(!open)} aria-label="Meny">
+        <button className="md:hidden text-white" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
@@ -65,7 +65,7 @@ export default function Nav() {
             </Link>
           ))}
           <Link href={signedIn ? "/api/auth/signout" : "/login"} className="rounded-lg px-3 py-2 text-sm font-bold text-violet-400">
-            {signedIn ? "Logg ut" : "Logg inn"}
+            {signedIn ? "Log out" : "Log in"}
           </Link>
         </nav>
       )}

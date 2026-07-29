@@ -85,7 +85,7 @@ export default function TransfersPage() {
     const body = await res.json();
     setSaving(false);
     if (!res.ok) {
-      setMessage(body.error ?? "Kunne ikke gjennomføre overgang.");
+      setMessage(body.error ?? "Couldn't complete the transfer.");
       return;
     }
     setSquad(squad.map((p) => (p.id === playerOut.id ? playerIn : p)));
@@ -93,24 +93,24 @@ export default function TransfersPage() {
     setFreeTransfers(body.free_transfers);
     setPlayerOut(null);
     setPlayerIn(null);
-    setMessage("Overgang gjennomført!");
+    setMessage("Transfer complete!");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Laster…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-24 pt-6">
-      <h1 className="font-display text-2xl font-black text-white">Overganger</h1>
+      <h1 className="font-display text-2xl font-black text-white">Transfers</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <StatCard label="Gratis overganger" value={freeTransfers} accent="emerald" />
-        <StatCard label="Budsjett igjen" value={`${budgetRemaining.toFixed(1)}M`} accent="violet" />
+        <StatCard label="Free transfers" value={freeTransfers} accent="emerald" />
+        <StatCard label="Budget remaining" value={`${budgetRemaining.toFixed(1)}M`} accent="violet" />
       </div>
       <p className="mt-2 text-xs text-slate-500">
-        Ubrukte overganger spares (maks 3). Ekstra overganger utover gratis-antallet koster 3 poeng hver.
+        Unused transfers roll over (max 3 saved). Extra transfers beyond your free ones cost 3 points each.
       </p>
 
-      <h2 className="mt-6 text-sm font-bold text-slate-400">1. Velg spiller ut</h2>
+      <h2 className="mt-6 text-sm font-bold text-slate-400">1. Choose player out</h2>
       <div className="mt-2 space-y-2">
         {squad.map((p) => (
           <PlayerCard key={p.id} player={p} selected={playerOut?.id === p.id} onClick={() => { setPlayerOut(p); setPlayerIn(null); }} />
@@ -119,7 +119,7 @@ export default function TransfersPage() {
 
       {playerOut && (
         <>
-          <h2 className="mt-6 text-sm font-bold text-slate-400">2. Velg spiller inn ({playerOut.position})</h2>
+          <h2 className="mt-6 text-sm font-bold text-slate-400">2. Choose player in ({playerOut.position})</h2>
           <div className="mt-2 space-y-2">
             {candidatesIn.map((p) => {
               const wouldExceedBudget = budgetRemaining + playerOut.price - p.price < 0;
@@ -143,9 +143,9 @@ export default function TransfersPage() {
             <ArrowRightLeft size={16} className="text-violet-400" />
             {playerOut.name} → {playerIn.name}
           </div>
-          <div className="mt-2 text-sm text-slate-400">Budsjett etter bytte: {budgetAfterSwap.toFixed(1)}M</div>
+          <div className="mt-2 text-sm text-slate-400">Budget after swap: {budgetAfterSwap.toFixed(1)}M</div>
           <div className="text-sm text-slate-400">
-            Kostnad: {willBeFree ? "Gratis overgang" : `-${pointCost} poeng (ingen gratis overganger igjen)`}
+            Cost: {willBeFree ? "Free transfer" : `-${pointCost} points (no free transfers left)`}
           </div>
           {message && <p className="mt-2 text-xs text-emerald-400">{message}</p>}
           <button
@@ -153,7 +153,7 @@ export default function TransfersPage() {
             disabled={saving || budgetAfterSwap < 0}
             className="mt-3 w-full rounded-xl bg-emerald-500 py-2.5 font-bold text-slate-950 hover:bg-emerald-400 disabled:opacity-50"
           >
-            {saving ? "Bekrefter…" : "Bekreft overgang"}
+            {saving ? "Confirming…" : "Confirm transfer"}
           </button>
         </div>
       )}
