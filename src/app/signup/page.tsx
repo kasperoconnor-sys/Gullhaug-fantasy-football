@@ -11,6 +11,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
@@ -20,33 +21,23 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { display_name: displayName, team_name: teamName } },
+    });
     if (signUpError || !data.user) {
       setLoading(false);
       setError(signUpError?.message ?? "Couldn't create user.");
       return;
     }
 
-    const { error: profileError } = await supabase
-      .from("profiles")
-      .insert({ id: data.user.id, display_name: displayName });
-    if (profileError) {
-      setLoading(false);
-      setError(profileError.message);
-      return;
-    }
-
-    const { data: settings } = await supabase.from("season_settings").select("starting_budget").single();
-
-    const { error: teamError } = await supabase.from("fantasy_teams").insert({
-      user_id: data.user.id,
-      team_name: teamName,
-      budget_remaining: settings?.starting_budget ?? 100.0,
-      free_transfers: 1,
-    });
     setLoading(false);
-    if (teamError) {
-      setError(teamError.message);
+
+    if (!data.session) {
+      // Email confirmation is required before a session exists.
+      setError(null);
+      setInfoMessage("Account created! Check your email to confirm, then log in.");
       return;
     }
 
@@ -65,6 +56,7 @@ export default function SignupPage() {
         <Field label="Email" value={email} onChange={setEmail} type="email" />
         <Field label="Password" value={password} onChange={setPassword} type="password" />
         {error && <p className="text-sm text-rose-400">{error}</p>}
+        {infoMessage && <p className="text-sm text-emerald-400">{infoMessage}</p>}
         <button
           type="submit"
           disabled={loading}
