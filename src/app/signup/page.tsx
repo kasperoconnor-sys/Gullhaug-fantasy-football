@@ -21,38 +21,23 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { display_name: displayName, team_name: teamName } },
+    const signupRes = await fetch("/api/auth/admin-signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, display_name: displayName, team_name: teamName }),
     });
-    if (signUpError || !data.user) {
+    const signupBody = await signupRes.json();
+    if (!signupRes.ok) {
       setLoading(false);
-      setError(signUpError?.message ?? "Couldn't create user.");
+      setError(signupBody.error ?? "Couldn't create user.");
       return;
     }
 
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
-
-    if (!data.session) {
-      // Email confirmation would normally be required here — auto-confirm
-      // server-side instead, then sign in immediately.
-      const confirmRes = await fetch("/api/auth/auto-confirm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: data.user.id }),
-      });
-      if (!confirmRes.ok) {
-        const body = await confirmRes.json();
-        setError(body.error ?? "Couldn't finish setting up your account.");
-        return;
-      }
-
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-      if (signInError) {
-        setError(signInError.message);
-        return;
-      }
+    if (signInError) {
+      setError(signInError.message);
+      return;
     }
 
     router.push("/squad");
