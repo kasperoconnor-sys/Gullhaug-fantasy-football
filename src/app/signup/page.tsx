@@ -35,10 +35,24 @@ export default function SignupPage() {
     setLoading(false);
 
     if (!data.session) {
-      // Email confirmation is required before a session exists.
-      setError(null);
-      setInfoMessage("Account created! Check your email to confirm, then log in.");
-      return;
+      // Email confirmation would normally be required here — auto-confirm
+      // server-side instead, then sign in immediately.
+      const confirmRes = await fetch("/api/auth/auto-confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: data.user.id }),
+      });
+      if (!confirmRes.ok) {
+        const body = await confirmRes.json();
+        setError(body.error ?? "Couldn't finish setting up your account.");
+        return;
+      }
+
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      if (signInError) {
+        setError(signInError.message);
+        return;
+      }
     }
 
     router.push("/squad");
