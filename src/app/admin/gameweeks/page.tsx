@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Gameweek, GameweekStatus } from "@/types";
-import { Lock, Unlock, Plus, Trophy } from "lucide-react";
+import { Lock, Unlock, Plus, Trophy, Flag } from "lucide-react";
 
 const STATUS_LABEL: Record<GameweekStatus, string> = {
   upcoming: "Upcoming",
@@ -60,6 +60,14 @@ export default function AdminGameweeksPage() {
     load();
   }
 
+  async function endSeason() {
+    if (!confirm("End the current season and archive it to the Hall of Fame? Squads and budgets are NOT reset — do that separately if needed.")) return;
+    setMessage("Archiving season…");
+    const res = await fetch("/api/admin/season/end", { method: "POST" });
+    const body = await res.json();
+    setMessage(res.ok ? `Season archived! New season "${body.new_season}" has started.` : body.error);
+  }
+
   return (
     <div>
       <h1 className="font-display text-2xl font-black text-white">Gameweeks</h1>
@@ -101,6 +109,17 @@ export default function AdminGameweeksPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-8 rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
+        <h2 className="text-sm font-bold text-rose-300">End Season</h2>
+        <p className="mt-1 text-xs text-slate-400">
+          Archives the current season's champion, records, and stats into the Hall of Fame, then starts a fresh
+          season. Squads and budgets are left untouched — reset those separately if you want a clean slate.
+        </p>
+        <button onClick={endSeason} className="mt-3 flex items-center gap-1 rounded-lg bg-rose-500/20 px-4 py-2 text-sm font-bold text-rose-300 hover:bg-rose-500/30">
+          <Flag size={14} /> End season & archive to Hall of Fame
+        </button>
       </div>
     </div>
   );

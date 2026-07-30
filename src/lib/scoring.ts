@@ -38,6 +38,7 @@ export interface ScoringContext {
   activeChip?: ChipType | null;
   isAwayFixture?: boolean;
   teamWon?: boolean;
+  applyScoutingBonus?: boolean; // set false when computing one leg of a double gameweek — apply once on the combined total instead
 }
 
 /**
@@ -87,11 +88,19 @@ export function calculatePlayerPoints(
 
   const chipBonus = goalRushBonus + superDefenceBonus + awayAdvantageBonus;
 
-  const subtotal = appearance + goals + assists + cleanSheet + concededPenalty + cards + ownGoals + chipBonus;
+  // Bonus Goal Scoring: hat-trick (3+ goals) is +2, and 5+ goals adds a
+  // further +3 on top — a 5-goal match receives both bonuses.
+  let goalBonus = 0;
+  if (stats.goals >= 3) goalBonus += 2;
+  if (stats.goals >= 5) goalBonus += 3;
 
-  // Scouting bonus: <5% ownership AND >=5 points this gameweek (checked
-  // against the subtotal, before the bonus itself is added).
-  const scoutingBonus = ctx.ownershipPct < 5 && subtotal >= 5 ? 2 : 0;
+  const subtotal = appearance + goals + assists + cleanSheet + concededPenalty + cards + ownGoals + chipBonus + goalBonus;
+
+  // Scouting bonus: <5% ownership AND >=5 points this gameweek. For a
+  // double gameweek, the caller sums both legs' subtotals first and
+  // applies this once via addScoutingBonus() below instead.
+  const applyBonus = ctx.applyScoutingBonus !== false;
+  const scoutingBonus = applyBonus && ctx.ownershipPct < 5 && subtotal >= 5 ? 2 : 0;
 
   const total = subtotal + scoutingBonus;
 
@@ -105,8 +114,18 @@ export function calculatePlayerPoints(
     own_goals: ownGoals,
     scouting_bonus: scoutingBonus,
     chip_bonus: goalRushBonus + awayAdvantageBonus,
+    goal_bonus: goalBonus,
     total,
   };
+}
+
+/**
+ * Applies the scouting bonus to an already-summed total (used after
+ * combining both legs of a double gameweek). Returns the bonus amount
+ * to add, or 0 if the player doesn't qualify.
+ */
+export function computeScoutingBonus(combinedSubtotal: number, ownershipPct: number): number {
+  return ownershipPct < 5 && combinedSubtotal >= 5 ? 2 : 0;
 }
 
 /**

@@ -100,6 +100,7 @@ export interface PointsBreakdown {
   own_goals: number;
   scouting_bonus: number;
   chip_bonus: number;
+  goal_bonus: number;
   total: number;
 }
 

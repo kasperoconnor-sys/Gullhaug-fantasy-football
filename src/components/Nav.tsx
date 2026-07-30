@@ -13,6 +13,14 @@ const LINKS = [
   { href: "/leagues", label: "Leagues" },
   { href: "/statistics", label: "Statistics" },
   { href: "/team-of-the-week", label: "Team of the Week" },
+  { href: "/achievements", label: "Achievements" },
+  { href: "/hall-of-fame", label: "Hall of Fame" },
+  { href: "/fixtures", label: "Fixture Planner" },
+  { href: "/calendar", label: "Calendar" },
+  { href: "/compare", label: "Compare Players" },
+  { href: "/profile", label: "My Profile" },
+  { href: "/records", label: "Season Records" },
+  { href: "/rules", label: "Rules" },
 ];
 
 export default function Nav() {
