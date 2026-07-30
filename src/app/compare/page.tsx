@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import FDRBadge from "@/components/FDRBadge";
 
@@ -15,10 +16,19 @@ interface PlayerStats {
 }
 
 export default function ComparePage() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>}>
+      <CompareContent />
+    </Suspense>
+  );
+}
+
+function CompareContent() {
   const supabase = createClient();
+  const searchParams = useSearchParams();
   const [players, setPlayers] = useState<any[]>([]);
-  const [leftId, setLeftId] = useState("");
-  const [rightId, setRightId] = useState("");
+  const [leftId, setLeftId] = useState(searchParams.get("left") ?? "");
+  const [rightId, setRightId] = useState(searchParams.get("right") ?? "");
   const [leftStats, setLeftStats] = useState<PlayerStats | null>(null);
   const [rightStats, setRightStats] = useState<PlayerStats | null>(null);
   const [managerCount, setManagerCount] = useState(1);
