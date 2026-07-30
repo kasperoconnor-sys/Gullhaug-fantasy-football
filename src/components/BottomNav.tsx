@@ -4,17 +4,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShieldCheck } from "lucide-react";
 import { MAIN_NAV, BOTTOM_NAV_PRIMARY } from "./navConfig";
 
 export default function BottomNav() {
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setSignedIn(!!data.user));
+    async function check() {
+      const { data } = await supabase.auth.getUser();
+      setSignedIn(!!data.user);
+      if (data.user) {
+        const { data: profile } = await supabase.from("profiles").select("is_admin").eq("id", data.user.id).single();
+        setIsAdmin(!!profile?.is_admin);
+      }
+    }
+    check();
   }, [supabase]);
 
   const primary = MAIN_NAV.filter((item) => BOTTOM_NAV_PRIMARY.includes(item.href));
@@ -65,6 +74,16 @@ export default function BottomNav() {
                 <span className="text-lg">📖</span>
                 <span className="text-[11px] font-medium text-slate-300">Rules</span>
               </Link>
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  onClick={() => setMoreOpen(false)}
+                  className="flex flex-col items-center gap-1 rounded-xl border border-amber-500/30 bg-amber-500/10 px-2 py-3 text-center"
+                >
+                  <ShieldCheck size={18} className="text-amber-400" />
+                  <span className="text-[11px] font-medium text-amber-300">Admin</span>
+                </Link>
+              )}
               <Link
                 href={signedIn ? "/api/auth/signout" : "/login"}
                 onClick={() => setMoreOpen(false)}
