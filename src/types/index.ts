@@ -9,6 +9,7 @@ export interface Team {
   name: string;
   short_name: string;
   is_gullhaug: boolean;
+  league?: string | null;
 }
 
 export interface Player {

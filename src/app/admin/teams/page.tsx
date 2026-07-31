@@ -10,6 +10,7 @@ export default function AdminTeamsPage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [name, setName] = useState("");
   const [shortName, setShortName] = useState("");
+  const [league, setLeague] = useState("");
   const [isGullhaug, setIsGullhaug] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -24,9 +25,10 @@ export default function AdminTeamsPage() {
 
   async function addTeam() {
     if (!name.trim() || !shortName.trim()) return;
-    await supabase.from("teams").insert({ name, short_name: shortName, is_gullhaug: isGullhaug });
+    await supabase.from("teams").insert({ name, short_name: shortName, is_gullhaug: isGullhaug, league: league || null });
     setName("");
     setShortName("");
+    setLeague("");
     setIsGullhaug(false);
     load();
   }
@@ -43,6 +45,7 @@ export default function AdminTeamsPage() {
       <div className="mt-4 flex flex-wrap items-end gap-2 rounded-xl border border-pitch-border bg-pitch-surface p-4">
         <Field label="Name" value={name} onChange={setName} />
         <Field label="Short name" value={shortName} onChange={setShortName} />
+        <Field label="League / Division" value={league} onChange={setLeague} placeholder="e.g. Vestfold 1. div" />
         <label className="flex items-center gap-2 pb-2 text-sm text-slate-300">
           <input type="checkbox" checked={isGullhaug} onChange={(e) => setIsGullhaug(e.target.checked)} />
           Gullhaug team
@@ -54,10 +57,11 @@ export default function AdminTeamsPage() {
 
       {!loading && (
         <div className="mt-4 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
-          {teams.map((t) => (
+          {teams.map((t: any) => (
             <div key={t.id} className="flex items-center justify-between px-4 py-2.5">
               <span className="text-sm text-white">
                 {t.name} ({t.short_name}) {t.is_gullhaug && <span className="text-emerald-400">★ Gullhaug</span>}
+                {t.league && <span className="ml-2 text-xs text-slate-500">— {t.league}</span>}
               </span>
               <button onClick={() => removeTeam(t.id)} className="text-slate-500 hover:text-rose-400">
                 <Trash2 size={16} />
@@ -70,12 +74,13 @@ export default function AdminTeamsPage() {
   );
 }
 
-function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+function Field({ label, value, onChange, placeholder }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string }) {
   return (
     <div>
       <label className="text-xs text-slate-500">{label}</label>
       <input
         value={value}
+        placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         className="mt-1 block rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-white outline-none focus:border-violet-500"
       />
