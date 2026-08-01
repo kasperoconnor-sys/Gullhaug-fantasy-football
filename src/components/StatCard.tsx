@@ -5,13 +5,19 @@ export default function StatCard({
 }: {
   label: string;
   value: string | number;
-  accent?: "violet" | "emerald";
+  accent?: "violet" | "emerald" | "gold" | "red";
 }) {
-  const color = accent === "violet" ? "text-violet-400" : "text-emerald-400";
+  const textColor = {
+    violet: "text-gradient-purple",
+    emerald: "text-emerald-400",
+    gold: "text-gradient-gold",
+    red: "text-rose-400",
+  }[accent];
+
   return (
-    <div className="rounded-xl border border-pitch-border bg-pitch-surface px-4 py-3">
+    <div className="card-premium rounded-xl px-4 py-3 transition-transform duration-150 hover:-translate-y-0.5">
       <div className="text-xs text-slate-500">{label}</div>
-      <div className={`font-mono text-xl font-black ${color}`}>{value}</div>
+      <div className={`font-mono text-xl font-black tabular-nums ${textColor}`}>{value}</div>
     </div>
   );
 }

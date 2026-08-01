@@ -8,29 +8,37 @@ const POS_COLOR: Record<string, string> = {
   FWD: "bg-rose-500/15 text-rose-400 border-rose-500/30",
 };
 
+interface ExtraStats {
+  ownershipPct?: number;
+  form?: number;
+  avgPoints?: number;
+}
+
 export default function PlayerCard({
   player,
   selected,
   disabled,
   onClick,
   rightSlot,
+  stats,
 }: {
   player: Player;
   selected?: boolean;
   disabled?: boolean;
   onClick?: () => void;
   rightSlot?: React.ReactNode;
+  stats?: ExtraStats;
 }) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`flex w-full items-center justify-between rounded-xl border px-3 py-3 text-left transition ${
+      className={`card-premium flex w-full items-center justify-between rounded-xl px-3 py-3 text-left transition-all duration-150 active:scale-[0.98] ${
         selected
-          ? "border-emerald-500/40 bg-emerald-500/10"
+          ? "border-emerald-500/50 shadow-[0_0_0_1px_rgba(16,185,129,0.5)] bg-emerald-500/10"
           : disabled
-          ? "border-pitch-border bg-pitch-surface/40 opacity-40"
-          : "border-pitch-border bg-pitch-surface hover:border-violet-500/50"
+          ? "opacity-40"
+          : "hover:border-violet-500/40 hover:shadow-glow"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -39,15 +47,19 @@ export default function PlayerCard({
         </span>
         <div>
           <div className="text-sm font-semibold text-white">{player.name}</div>
-          <div className="text-xs text-slate-500">
-            {player.team?.name}
-            {player.team?.is_gullhaug ? " ★" : ""}
+          <div className="flex flex-wrap items-center gap-x-2 text-xs text-slate-500">
+            <span>
+              {player.team?.name}
+              {player.team?.is_gullhaug ? " ★" : ""}
+            </span>
+            {stats?.ownershipPct !== undefined && <span className="text-slate-600">{stats.ownershipPct.toFixed(1)}% owned</span>}
+            {stats?.form !== undefined && <span className="text-slate-600">form {stats.form.toFixed(1)}</span>}
           </div>
         </div>
       </div>
       <div className="flex items-center gap-2">
         {rightSlot}
-        <span className="font-mono text-sm text-slate-300">{player.price.toFixed(1)}M</span>
+        <span className="font-mono text-sm font-bold text-white">{player.price.toFixed(1)}M</span>
         {selected && <Check size={16} className="text-emerald-400" />}
       </div>
     </button>

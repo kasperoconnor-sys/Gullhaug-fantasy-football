@@ -8,7 +8,8 @@
 }
 
 body {
-  background-color: #0b0f14;
+  background-color: #06070c;
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 58, 237, 0.15), transparent);
   color: #f1f5f9;
 }
 
@@ -17,8 +18,35 @@ body {
   color: white;
 }
 
-.fdr-1 { @apply bg-green-500/20 text-green-400 border-green-500/40; }
+.fdr-1 { @apply bg-emerald-500/20 text-emerald-400 border-emerald-500/40; }
 .fdr-2 { @apply bg-lime-500/20 text-lime-400 border-lime-500/40; }
-.fdr-3 { @apply bg-yellow-500/20 text-yellow-400 border-yellow-500/40; }
+.fdr-3 { @apply bg-amber-500/20 text-amber-400 border-amber-500/40; }
 .fdr-4 { @apply bg-orange-500/20 text-orange-400 border-orange-500/40; }
-.fdr-5 { @apply bg-red-500/20 text-red-400 border-red-500/40; }
+.fdr-5 { @apply bg-rose-500/20 text-rose-400 border-rose-500/40; }
+
+/* Gradient text for hero numbers / big point totals */
+.text-gradient-purple {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fde68a, #f5b93d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Premium card with subtle depth instead of flat fills */
+.card-premium {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #12131c 25%, #1c1e2c 37%, #12131c 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}

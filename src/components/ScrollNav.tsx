@@ -17,9 +17,9 @@ export default function ScrollNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-all ${
+              className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-all duration-150 active:scale-95 ${
                 active
-                  ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-400"
+                  ? "border-violet-500/40 bg-gradient-to-r from-violet-600/25 to-violet-600/10 text-violet-300 shadow-glow"
                   : "border-transparent text-slate-400 hover:bg-pitch-surface hover:text-white"
               }`}
             >

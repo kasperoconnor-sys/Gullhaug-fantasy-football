@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Trophy, Bell, Settings, ShieldCheck, User } from "lucide-react";
+import { Bell, Settings, ShieldCheck, User } from "lucide-react";
+import GFFLogo from "./GFFLogo";
 
 export default function SiteHeader() {
   const supabase = createClient();
@@ -76,7 +77,7 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-pitch-border bg-pitch/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5">
         <Link href="/" className="flex items-center gap-2 font-display text-base font-bold tracking-tight text-white shrink-0">
-          <Trophy size={18} className="text-emerald-400" />
+          <GFFLogo size={20} />
           GFF
           {seasonLabel && <span className="rounded bg-pitch-surface px-1.5 py-0.5 text-[10px] font-bold text-slate-400">S{seasonLabel}</span>}
         </Link>
@@ -84,7 +85,7 @@ export default function SiteHeader() {
         {status && (
           <div
             className={`hidden truncate rounded-full px-3 py-1 text-xs font-bold sm:block ${
-              status.mode === "live" ? "bg-rose-500/15 text-rose-400 animate-pulse" : "bg-violet-500/15 text-violet-300"
+              status.mode === "live" ? "bg-rose-500/15 text-rose-400 animate-pulse-live" : "bg-violet-500/15 text-violet-300"
             }`}
           >
             {status.mode === "live" ? "🔴" : "⏳"} {status.text}
