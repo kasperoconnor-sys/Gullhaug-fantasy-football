@@ -12,7 +12,7 @@ export default async function AdminOverview() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-black text-white">Admin Overview</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Admin Overview</h1>
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard label="Teams" value={teamCount ?? 0} />
         <StatCard label="Players" value={playerCount ?? 0} accent="emerald" />

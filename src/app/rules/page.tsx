@@ -1,7 +1,7 @@
 export default function RulesPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 pb-16">
-      <h1 className="font-display text-2xl font-black text-white">Rules</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Rules</h1>
       <p className="mt-1 text-sm text-slate-500">Everything that decides how points, squads, and the season work.</p>
 
       <Section title="Squad Rules">
@@ -84,7 +84,7 @@ export default function RulesPage() {
       </Section>
 
       <Section title="Why only Gullhaug assists?">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Assist data isn't available for every club we play against, so to keep things fair, assists are only ever
           tracked and awarded for Gullhaug Team 1 and Gullhaug Team 2 players. Every other position's assist points
           are simply 0, regardless of team.
@@ -144,7 +144,7 @@ export default function RulesPage() {
       </Section>
 
       <Section title="Achievements & Weekly Awards">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Achievements are permanent, one-time unlocks (see the Achievements page for the full list). Weekly Awards
           are generated fresh every gameweek — Manager of the Week, Captain of the Week, Best Differential, Best
           Defence, Highest Attack, and Unluckiest Manager.
@@ -152,7 +152,7 @@ export default function RulesPage() {
       </Section>
 
       <Section title="Fixture Difficulty Rating (FDR)">
-        <p className="text-sm text-slate-400">Every fixture is rated 1 (easiest) to 5 (hardest) for each side:</p>
+        <p className="text-sm text-slate-500">Every fixture is rated 1 (easiest) to 5 (hardest) for each side:</p>
         <div className="mt-2 flex flex-wrap gap-2 text-xs font-bold">
           <span className="fdr-1 rounded-md border px-2 py-1">1 Very easy</span>
           <span className="fdr-2 rounded-md border px-2 py-1">2 Easy</span>
@@ -163,7 +163,7 @@ export default function RulesPage() {
       </Section>
 
       <Section title="Budget">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Every manager starts with the same budget (set by the admin before the season — see Admin → Gameweeks).
           Player prices are fixed for the whole season and never change.
         </p>
@@ -175,7 +175,7 @@ export default function RulesPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-6">
-      <h2 className="font-display text-lg font-bold text-white">{title}</h2>
+      <h2 className="font-display text-lg font-bold text-slate-900">{title}</h2>
       <div className="mt-2 rounded-xl border border-pitch-border bg-pitch-surface p-4">{children}</div>
     </div>
   );
@@ -183,7 +183,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function List({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-1.5 text-sm text-slate-300">
+    <ul className="space-y-1.5 text-sm text-slate-700">
       {items.map((item, i) => (
         <li key={i} className="flex gap-2">
           <span className="text-violet-400">•</span>
@@ -203,7 +203,7 @@ function ConcededTable() {
       {rows.map(([conceded, points]) => (
         <div key={conceded} className="rounded-lg bg-pitch px-2 py-1.5">
           <div className="text-slate-500">{conceded} conceded</div>
-          <div className="font-mono font-bold text-white">{points}</div>
+          <div className="font-mono font-bold text-slate-900">{points}</div>
         </div>
       ))}
     </div>

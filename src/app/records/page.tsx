@@ -75,7 +75,7 @@ export default async function RecordsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Season Records</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Season Records</h1>
       <p className="mt-1 text-sm text-slate-500">All-time bests across every gameweek played.</p>
 
       <div className="mt-4 space-y-2">
@@ -97,8 +97,8 @@ export default async function RecordsPage() {
 function Record({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between rounded-xl border border-pitch-border bg-pitch-surface px-4 py-3">
-      <span className="text-sm text-slate-400">{label}</span>
-      <span className="text-right text-sm font-bold text-white">{value}</span>
+      <span className="text-sm text-slate-500">{label}</span>
+      <span className="text-right text-sm font-bold text-slate-900">{value}</span>
     </div>
   );
 }

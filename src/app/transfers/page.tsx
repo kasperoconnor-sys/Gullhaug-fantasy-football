@@ -155,11 +155,11 @@ export default function TransfersPage() {
     setMessage("Transfer complete!");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-24 pt-6">
-      <h1 className="font-display text-2xl font-black text-white">Transfers</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Transfers</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         <StatCard label="Free transfers" value={freeTransfers} accent="emerald" />
@@ -169,7 +169,7 @@ export default function TransfersPage() {
         Unused transfers roll over (max 3 saved). Extra transfers beyond your free ones cost 3 points each.
       </p>
 
-      <h2 className="mt-6 text-sm font-bold text-slate-400">1. Choose player out</h2>
+      <h2 className="mt-6 text-sm font-bold text-slate-500">1. Choose player out</h2>
       <div className="mt-2 space-y-2">
         {squad.map((p) => (
           <RichPlayerRow key={p.id} player={p} selected={playerOut?.id === p.id} onClick={() => { setPlayerOut(p); setPlayerIn(null); }} />
@@ -178,7 +178,7 @@ export default function TransfersPage() {
 
       {playerOut && (
         <>
-          <h2 className="mt-6 text-sm font-bold text-slate-400">2. Choose player in ({playerOut.position})</h2>
+          <h2 className="mt-6 text-sm font-bold text-slate-500">2. Choose player in ({playerOut.position})</h2>
 
           <div className="mt-2 flex flex-wrap gap-2">
             <div className="relative flex-1 min-w-[140px]">
@@ -187,14 +187,14 @@ export default function TransfersPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search players…"
-                className="w-full rounded-lg border border-pitch-border bg-pitch-surface py-2 pl-8 pr-3 text-sm text-white outline-none focus:border-violet-500"
+                className="w-full rounded-lg border border-pitch-border bg-pitch-surface py-2 pl-8 pr-3 text-sm text-slate-900 outline-none focus:border-violet-500"
               />
             </div>
-            <select value={clubFilter} onChange={(e) => setClubFilter(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-white outline-none focus:border-violet-500">
+            <select value={clubFilter} onChange={(e) => setClubFilter(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
               <option value="">All clubs</option>
               {clubs.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
-            <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-white outline-none focus:border-violet-500">
+            <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
               <option value="form">Sort: Form</option>
               <option value="points">Sort: Total points</option>
               <option value="price">Sort: Price</option>
@@ -223,12 +223,12 @@ export default function TransfersPage() {
 
       {playerOut && playerIn && (
         <div className="mt-6 rounded-xl border border-pitch-border bg-pitch-surface p-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-white">
+          <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
             <ArrowRightLeft size={16} className="text-violet-400" />
             {playerOut.name} → {playerIn.name}
           </div>
-          <div className="mt-2 text-sm text-slate-400">Budget after swap: {budgetAfterSwap.toFixed(1)}M</div>
-          <div className="text-sm text-slate-400">
+          <div className="mt-2 text-sm text-slate-500">Budget after swap: {budgetAfterSwap.toFixed(1)}M</div>
+          <div className="text-sm text-slate-500">
             Cost: {willBeFree ? "Free transfer" : `-${pointCost} points (no free transfers left)`}
           </div>
           {message && <p className="mt-2 text-xs text-emerald-400">{message}</p>}
@@ -246,10 +246,10 @@ export default function TransfersPage() {
 }
 
 const POS_COLOR: Record<string, string> = {
-  GK: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-  DEF: "bg-sky-500/15 text-sky-400 border-sky-500/30",
-  MID: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-  FWD: "bg-rose-500/15 text-rose-400 border-rose-500/30",
+  GK: "bg-amber-50 text-amber-700 border-amber-200",
+  DEF: "bg-sky-50 text-sky-700 border-sky-200",
+  MID: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  FWD: "bg-rose-50 text-rose-700 border-rose-200",
 };
 
 function RichPlayerRow({
@@ -275,7 +275,7 @@ function RichPlayerRow({
         <div className="flex items-center gap-3">
           <span className={`rounded-md border px-2 py-1 text-[10px] font-bold ${POS_COLOR[player.position]}`}>{player.position}</span>
           <div>
-            <div className="flex items-center gap-1 text-sm font-semibold text-white">
+            <div className="flex items-center gap-1 text-sm font-semibold text-slate-900">
               {player.name}
               {player.isDifferential && <Gem size={12} className="text-violet-400" />}
             </div>
@@ -284,7 +284,7 @@ function RichPlayerRow({
             </div>
           </div>
         </div>
-        <span className="font-mono text-sm text-slate-300">{player.price.toFixed(1)}M</span>
+        <span className="font-mono text-sm text-slate-700">{player.price.toFixed(1)}M</span>
       </button>
 
       <div className="mt-2 flex items-center justify-between">
@@ -292,10 +292,10 @@ function RichPlayerRow({
           {player.next5.map((f, i) => (
             <div key={i} className="flex flex-col items-center gap-0.5">
               <FDRBadge rating={f.fdr} />
-              <span className="text-[9px] text-slate-600">{f.isHome ? "H" : "A"}</span>
+              <span className="text-[9px] text-slate-400">{f.isHome ? "H" : "A"}</span>
             </div>
           ))}
-          {player.next5.length === 0 && <span className="text-[11px] text-slate-600">No fixtures scheduled</span>}
+          {player.next5.length === 0 && <span className="text-[11px] text-slate-400">No fixtures scheduled</span>}
         </div>
         {compareHref && (
           <Link href={compareHref} className="flex items-center gap-1 rounded-md bg-violet-500/15 border border-violet-500/30 px-2 py-1 text-[10px] font-bold text-violet-300">

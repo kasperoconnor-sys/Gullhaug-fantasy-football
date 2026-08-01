@@ -117,7 +117,7 @@ export default function AdminResultsPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-black text-white">Enter Results</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Enter Results</h1>
       <p className="mt-1 text-sm text-slate-500">
         Manual entry (fallback for when Min Fotball data can't be pulled automatically). Assists are only tracked for Gullhaug players.
       </p>
@@ -125,7 +125,7 @@ export default function AdminResultsPage() {
       <select
         value={selectedFixtureId}
         onChange={(e) => setSelectedFixtureId(e.target.value)}
-        className="mt-4 block w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-white outline-none focus:border-violet-500 sm:w-auto"
+        className="mt-4 block w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500 sm:w-auto"
       >
         {fixtures.map((f) => (
           <option key={f.id} value={f.id}>
@@ -137,17 +137,17 @@ export default function AdminResultsPage() {
       {fixture && (
         <>
           <div className="mt-4 flex items-center gap-3 rounded-xl border border-pitch-border bg-pitch-surface p-4">
-            <span className="text-sm font-semibold text-white">{fixture.home_team?.name}</span>
-            <input type="number" value={homeScore} onChange={(e) => setHomeScore(e.target.value)} className="w-16 rounded-lg border border-pitch-border bg-pitch px-2 py-1 text-center text-white" />
+            <span className="text-sm font-semibold text-slate-900">{fixture.home_team?.name}</span>
+            <input type="number" value={homeScore} onChange={(e) => setHomeScore(e.target.value)} className="w-16 rounded-lg border border-pitch-border bg-pitch px-2 py-1 text-center text-slate-900" />
             <span className="text-slate-500">–</span>
-            <input type="number" value={awayScore} onChange={(e) => setAwayScore(e.target.value)} className="w-16 rounded-lg border border-pitch-border bg-pitch px-2 py-1 text-center text-white" />
-            <span className="text-sm font-semibold text-white">{fixture.away_team?.name}</span>
+            <input type="number" value={awayScore} onChange={(e) => setAwayScore(e.target.value)} className="w-16 rounded-lg border border-pitch-border bg-pitch px-2 py-1 text-center text-slate-900" />
+            <span className="text-sm font-semibold text-slate-900">{fixture.away_team?.name}</span>
           </div>
 
           <div className="mt-4 space-y-2">
             {Object.values(rosterStats).map((s: any) => (
               <div key={s.player.id} className="grid grid-cols-2 gap-2 rounded-xl border border-pitch-border bg-pitch-surface p-3 sm:grid-cols-8 sm:items-center">
-                <span className="col-span-2 text-sm font-semibold text-white sm:col-span-2">{s.player.name}</span>
+                <span className="col-span-2 text-sm font-semibold text-slate-900 sm:col-span-2">{s.player.name}</span>
                 <NumField label="Mins" value={s.minutes_played} onChange={(v) => updateStat(s.player.id, "minutes_played", v)} />
                 <NumField label="Goals" value={s.goals} onChange={(v) => updateStat(s.player.id, "goals", v)} />
                 {s.player.team?.is_gullhaug && <NumField label="Assist" value={s.assists} onChange={(v) => updateStat(s.player.id, "assists", v)} />}
@@ -182,7 +182,7 @@ function NumField({ label, value, onChange }: { label: string; value: any; onCha
         min={0}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-0.5 block w-full rounded-md border border-pitch-border bg-pitch px-2 py-1 text-sm text-white outline-none focus:border-violet-500"
+        className="mt-0.5 block w-full rounded-md border border-pitch-border bg-pitch px-2 py-1 text-sm text-slate-900 outline-none focus:border-violet-500"
       />
     </div>
   );

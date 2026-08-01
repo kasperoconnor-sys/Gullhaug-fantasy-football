@@ -43,8 +43,8 @@ export default function DeadlineCountdown({ deadline, gameweekNumber }: { deadli
 function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div>
-      <div className="font-mono text-3xl font-black text-white">{value}</div>
-      <div className="text-[11px] text-slate-400">{label}</div>
+      <div className="font-mono text-3xl font-black text-slate-900">{value}</div>
+      <div className="text-[11px] text-slate-500">{label}</div>
     </div>
   );
 }

@@ -25,10 +25,10 @@ export default async function LeagueDetailPage({ params }: { params: { id: strin
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">{league?.name}</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">{league?.name}</h1>
       <p className="mt-1 font-mono text-xs text-slate-500">Invite code: {league?.invite_code}</p>
 
-      <h2 className="mt-6 text-sm font-bold text-slate-400">Overall</h2>
+      <h2 className="mt-6 text-sm font-bold text-slate-500">Overall</h2>
       <div className="mt-2 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
         {standings.map((s, i) => (
           <div key={s.team.id} className="flex items-center justify-between px-4 py-3">
@@ -36,7 +36,7 @@ export default async function LeagueDetailPage({ params }: { params: { id: strin
               <span className={`w-5 text-sm font-bold ${i === 0 ? "text-amber-400" : "text-slate-500"}`}>
                 {i === 0 ? <Trophy size={16} /> : i + 1}
               </span>
-              <span className="text-sm font-semibold text-white">{s.team.team_name}</span>
+              <span className="text-sm font-semibold text-slate-900">{s.team.team_name}</span>
             </div>
             <span className="font-mono text-sm font-bold text-emerald-400">{s.total} p</span>
           </div>

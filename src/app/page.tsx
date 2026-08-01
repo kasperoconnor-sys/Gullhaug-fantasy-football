@@ -102,10 +102,10 @@ export default async function HomePage() {
     <div className="mx-auto max-w-4xl px-4 py-4">
       {/* Greeting + rank strip */}
       {displayName ? (
-        <div className="rounded-2xl border border-pitch-border bg-gradient-to-br from-violet-600/15 to-emerald-600/10 p-4">
-          <p className="font-display text-lg font-bold text-white">👋 Hi {displayName}!</p>
+        <div className="rounded-2xl border border-pitch-border bg-white p-4 shadow-card">
+          <p className="font-display text-lg font-bold text-slate-900">👋 Hi {displayName}!</p>
           {nextDeadlineGw && (
-            <p className="mt-0.5 text-xs text-slate-400">
+            <p className="mt-0.5 text-xs text-slate-500">
               GW{nextDeadlineGw.number} • Deadline in{" "}
               <CountdownInline deadline={nextDeadlineGw.deadline_at} />
             </p>
@@ -136,7 +136,7 @@ export default async function HomePage() {
           <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-violet-400">
             <Newspaper size={13} /> Featured Story
           </div>
-          <p className="mt-1.5 text-sm font-semibold text-white">"{headline}"</p>
+          <p className="mt-1.5 text-sm font-semibold text-slate-900">"{headline}"</p>
           <span className="mt-1 inline-block text-xs font-semibold text-violet-400">Read more →</span>
         </Link>
       )}
@@ -161,7 +161,7 @@ export default async function HomePage() {
       {/* League snapshot */}
       <div className="mt-4 rounded-2xl border border-pitch-border bg-pitch-surface p-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-bold text-slate-300">League Snapshot</h2>
+          <h2 className="text-sm font-bold text-slate-700">League Snapshot</h2>
           <Link href="/leagues" className="flex items-center gap-0.5 text-[11px] font-semibold text-violet-400">
             View Table <ArrowRight size={11} />
           </Link>
@@ -169,7 +169,7 @@ export default async function HomePage() {
         <div className="mt-2 space-y-1.5">
           {leaderboard.slice(0, 3).map(([id, pts], i) => (
             <div key={id} className="flex items-center justify-between text-sm">
-              <span className="text-white">
+              <span className="text-slate-900">
                 {i + 1}. {teamName.get(id)}
               </span>
               <span className="font-mono font-bold text-emerald-400">{pts}</span>
@@ -191,8 +191,8 @@ export default async function HomePage() {
 function MiniStat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-lg bg-pitch/60 py-2">
-      <div className="font-mono text-lg font-black text-white">{value}</div>
-      <div className="text-[10px] text-slate-400">{label}</div>
+      <div className="font-mono text-lg font-black text-slate-900">{value}</div>
+      <div className="text-[10px] text-slate-500">{label}</div>
     </div>
   );
 }
@@ -201,7 +201,7 @@ function QuickCard({ href, icon, label }: { href: string; icon: React.ReactNode;
   return (
     <Link href={href} className="flex flex-col items-center gap-1.5 rounded-xl border border-pitch-border bg-pitch-surface px-2 py-4 text-center hover:border-violet-500/40">
       {icon}
-      <span className="text-[11px] font-semibold text-slate-300">{label}</span>
+      <span className="text-[11px] font-semibold text-slate-700">{label}</span>
     </Link>
   );
 }

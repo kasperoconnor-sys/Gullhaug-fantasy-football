@@ -90,7 +90,7 @@ export default async function StatisticsPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 pb-6">
-      <h1 className="font-display text-2xl font-black text-white">Stats</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Stats</h1>
       <p className="mt-1 text-sm text-slate-500">Every category, updated as results come in.</p>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -121,14 +121,14 @@ export default async function StatisticsPage() {
 function Board({ title, rows, valueKey, suffix, decimals }: { title: string; rows: any[]; valueKey: string; suffix: string; decimals?: boolean }) {
   return (
     <div>
-      <h2 className="text-sm font-bold text-slate-400">{title}</h2>
+      <h2 className="text-sm font-bold text-slate-500">{title}</h2>
       <div className="mt-2 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
         {rows.map((p, i) => (
           <div key={p.id} className="flex items-center justify-between px-4 py-2.5">
             <div className="flex items-center gap-3">
-              <span className="w-5 text-xs font-bold text-slate-600">{i + 1}</span>
+              <span className="w-5 text-xs font-bold text-slate-400">{i + 1}</span>
               <div>
-                <div className="text-sm font-semibold text-white">{p.name}</div>
+                <div className="text-sm font-semibold text-slate-900">{p.name}</div>
                 <div className="text-xs text-slate-500">{p.team?.name}</div>
               </div>
             </div>

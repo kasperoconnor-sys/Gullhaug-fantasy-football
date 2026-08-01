@@ -76,10 +76,10 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-pitch-border bg-pitch/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5">
-        <Link href="/" className="flex items-center gap-2 font-display text-base font-bold tracking-tight text-white shrink-0">
+        <Link href="/" className="flex items-center gap-2 font-display text-base font-bold tracking-tight text-slate-900 shrink-0">
           <GFFLogo size={20} />
           GFF
-          {seasonLabel && <span className="rounded bg-pitch-surface px-1.5 py-0.5 text-[10px] font-bold text-slate-400">S{seasonLabel}</span>}
+          {seasonLabel && <span className="rounded bg-pitch-surface px-1.5 py-0.5 text-[10px] font-bold text-slate-500">S{seasonLabel}</span>}
         </Link>
 
         {status && (
@@ -95,7 +95,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-1.5 shrink-0">
           {signedIn && (
             <div className="relative">
-              <button onClick={() => setNotifOpen(!notifOpen)} className="rounded-lg p-2 text-slate-400 hover:bg-pitch-surface hover:text-white">
+              <button onClick={() => setNotifOpen(!notifOpen)} className="rounded-lg p-2 text-slate-500 hover:bg-pitch-surface hover:text-slate-900">
                 <Bell size={17} />
                 {notifications.length > 0 && <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400" />}
               </button>
@@ -103,7 +103,7 @@ export default function SiteHeader() {
                 <div className="absolute right-0 top-11 w-64 rounded-xl border border-pitch-border bg-pitch-surface p-2 shadow-xl">
                   {notifications.length === 0 && <p className="px-2 py-3 text-xs text-slate-500">Nothing new yet.</p>}
                   {notifications.map((n) => (
-                    <div key={n.id} className="rounded-lg px-2 py-2 text-xs text-slate-300 hover:bg-pitch">
+                    <div key={n.id} className="rounded-lg px-2 py-2 text-xs text-slate-700 hover:bg-pitch">
                       {n.text}
                     </div>
                   ))}
@@ -113,13 +113,13 @@ export default function SiteHeader() {
           )}
 
           {signedIn && (
-            <Link href="/all-time" className="rounded-lg p-2 text-slate-400 hover:bg-pitch-surface hover:text-white">
+            <Link href="/all-time" className="rounded-lg p-2 text-slate-500 hover:bg-pitch-surface hover:text-slate-900">
               <User size={17} />
             </Link>
           )}
 
           {signedIn && (
-            <Link href="/settings" className="rounded-lg p-2 text-slate-400 hover:bg-pitch-surface hover:text-white">
+            <Link href="/settings" className="rounded-lg p-2 text-slate-500 hover:bg-pitch-surface hover:text-slate-900">
               <Settings size={17} />
             </Link>
           )}

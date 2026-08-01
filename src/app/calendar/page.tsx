@@ -40,7 +40,7 @@ export default function CalendarPage() {
     }
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
 
   const byMonth = new Map<string, any[]>();
   fixtures.forEach((f) => {
@@ -52,18 +52,18 @@ export default function CalendarPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Fixture Calendar</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Fixture Calendar</h1>
       <p className="mt-1 text-sm text-slate-500">Tap a fixture for the score, scorers, and fantasy points.</p>
 
       {[...byMonth.entries()].map(([month, list]) => (
         <div key={month} className="mt-6">
-          <h2 className="text-sm font-bold text-slate-400">{month}</h2>
+          <h2 className="text-sm font-bold text-slate-500">{month}</h2>
           <div className="mt-2 space-y-2">
             {list.map((f) => (
               <div key={f.id} className="rounded-xl border border-pitch-border bg-pitch-surface">
                 <button onClick={() => toggle(f)} className="flex w-full items-center justify-between px-4 py-3 text-left">
                   <div>
-                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
                       {f.home_team?.name} <FDRBadge rating={f.home_fdr} /> vs <FDRBadge rating={f.away_fdr} /> {f.away_team?.name}
                     </div>
                     <div className="text-xs text-slate-500">{new Date(f.kickoff_at).toLocaleDateString("en-GB")}</div>
@@ -79,7 +79,7 @@ export default function CalendarPage() {
                     {f.is_final && (details[f.id]?.length ?? 0) === 0 && <p className="text-xs text-slate-500">No goal scorers recorded.</p>}
                     {(details[f.id] ?? []).map((d: any) => (
                       <div key={d.id} className="flex items-center justify-between py-1 text-xs">
-                        <span className="text-white">⚽ {d.player?.name} × {d.goals}</span>
+                        <span className="text-slate-900">⚽ {d.player?.name} × {d.goals}</span>
                         <span className="text-slate-500">{d.clean_sheet ? "Clean sheet" : ""}</span>
                       </div>
                     ))}

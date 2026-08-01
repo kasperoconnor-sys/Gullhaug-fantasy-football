@@ -15,7 +15,7 @@ export default async function TeamOfTheWeekPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Team of the Week</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Team of the Week</h1>
       <p className="mt-1 text-sm text-slate-500">Archive of every gameweek's best XI.</p>
 
       <div className="mt-6 space-y-8">
@@ -24,7 +24,7 @@ export default async function TeamOfTheWeekPage() {
           return (
             <div key={totw.id}>
               <div className="flex items-center justify-between px-1">
-                <h2 className="font-display text-lg font-bold text-white">Gameweek {totw.gameweek?.number}</h2>
+                <h2 className="font-display text-lg font-bold text-slate-900">Gameweek {totw.gameweek?.number}</h2>
                 <span className="flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-300">
                   <Trophy size={12} /> {totw.total_points} pts
                 </span>
@@ -40,7 +40,7 @@ export default async function TeamOfTheWeekPage() {
                         <div
                           key={tp.id}
                           className={`flex w-[86px] flex-col items-center rounded-xl border px-1.5 py-2 text-center backdrop-blur ${
-                            tp.is_captain ? "border-amber-400/60 bg-amber-500/15 shadow-goldGlow" : "border-white/20 bg-black/30"
+                            tp.is_captain ? "border-amber-400/60 bg-amber-500/20" : "border-white/20 bg-black/30"
                           }`}
                         >
                           <div className="truncate w-full text-[11px] font-bold text-white">

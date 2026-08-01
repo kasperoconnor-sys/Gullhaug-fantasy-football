@@ -66,11 +66,11 @@ export default function ChipsPage() {
     setMessage(`${chip} is activated for this gameweek!`);
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Chips</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Chips</h1>
       <p className="mt-1 text-sm text-slate-500">Each chip can only be used once per season.</p>
 
       {message && <p className="mt-3 text-sm text-emerald-400">{message}</p>}
@@ -80,11 +80,11 @@ export default function ChipsPage() {
           const isUsed = used.includes(id);
           return (
             <div key={id} className={`rounded-xl border p-4 ${isUsed ? "border-pitch-border bg-pitch-surface/40 opacity-50" : "border-violet-500/30 bg-pitch-surface"}`}>
-              <div className="flex items-center gap-2 text-white">
+              <div className="flex items-center gap-2 text-slate-900">
                 <Icon size={18} className="text-violet-400" />
                 <span className="font-bold">{name}</span>
               </div>
-              <p className="mt-1 text-xs text-slate-400">{description}</p>
+              <p className="mt-1 text-xs text-slate-500">{description}</p>
               <button
                 onClick={() => activate(id)}
                 disabled={isUsed}

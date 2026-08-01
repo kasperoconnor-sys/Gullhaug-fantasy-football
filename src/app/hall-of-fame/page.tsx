@@ -23,17 +23,17 @@ export default async function HallOfFamePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Hall of Fame</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Hall of Fame</h1>
       <p className="mt-1 text-sm text-slate-500">Every completed season, archived forever.</p>
 
       <div className="mt-6 space-y-6">
         {(archive ?? []).map((h: any) => (
           <div key={h.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-violet-600/10 to-emerald-600/10 p-5">
-            <h2 className="font-display text-xl font-bold text-white">Season {h.season?.label}</h2>
+            <h2 className="font-display text-xl font-bold text-slate-900">Season {h.season?.label}</h2>
 
             <div className="mt-4 grid gap-2 sm:grid-cols-3">
               <Podium place={1} icon={<Trophy size={18} className="text-amber-400" />} name={h.champion?.team_name} />
-              <Podium place={2} icon={<Medal size={18} className="text-slate-300" />} name={h.runner_up?.team_name} />
+              <Podium place={2} icon={<Medal size={18} className="text-slate-700" />} name={h.runner_up?.team_name} />
               <Podium place={3} icon={<Medal size={18} className="text-orange-400" />} name={h.third?.team_name} />
             </div>
 
@@ -60,7 +60,7 @@ function Podium({ place, icon, name }: { place: number; icon: React.ReactNode; n
       <div className="flex items-center justify-center gap-1 text-xs text-slate-500">
         {icon} #{place}
       </div>
-      <div className="mt-1 text-sm font-bold text-white">{name ?? "—"}</div>
+      <div className="mt-1 text-sm font-bold text-slate-900">{name ?? "—"}</div>
     </div>
   );
 }
@@ -69,7 +69,7 @@ function Stat({ label, value }: { label: string; value: any }) {
   return (
     <div className="rounded-lg bg-pitch px-3 py-2">
       <div className="text-[11px] text-slate-500">{label}</div>
-      <div className="font-mono font-bold text-white">{value ?? "—"}</div>
+      <div className="font-mono font-bold text-slate-900">{value ?? "—"}</div>
     </div>
   );
 }

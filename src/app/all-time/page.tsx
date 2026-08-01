@@ -113,18 +113,18 @@ export default function AllTimePage() {
     load();
   }, [supabase, router]);
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">All-Time</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">All-Time</h1>
 
       <div className="mt-4 flex gap-2">
         {(["career", "hof", "records"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`rounded-full px-4 py-2 text-sm font-bold ${tab === t ? "bg-violet-600 text-white" : "bg-pitch-surface border border-pitch-border text-slate-400"}`}
+            className={`rounded-full px-4 py-2 text-sm font-bold ${tab === t ? "bg-violet-600 text-white" : "bg-pitch-surface border border-pitch-border text-slate-500"}`}
           >
             {t === "career" ? "Your Career" : t === "hof" ? "Hall of Fame" : "Global Records"}
           </button>
@@ -145,14 +145,14 @@ export default function AllTimePage() {
             <StatCard label="Achievements" value={`${career.achievementsCount}/11`} accent="emerald" />
           </div>
           <div className="mt-4">
-            <h2 className="text-sm font-bold text-slate-400">Chips used</h2>
+            <h2 className="text-sm font-bold text-slate-500">Chips used</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               {career.chipsUsed.map((c: string, i: number) => (
                 <span key={i} className="rounded-full bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-xs font-bold text-violet-300">
                   {c.replace("_", " ")}
                 </span>
               ))}
-              {career.chipsUsed.length === 0 && <span className="text-xs text-slate-600">None used yet</span>}
+              {career.chipsUsed.length === 0 && <span className="text-xs text-slate-400">None used yet</span>}
             </div>
           </div>
         </div>
@@ -162,10 +162,10 @@ export default function AllTimePage() {
         <div className="mt-5 space-y-6">
           {hof.map((h: any) => (
             <div key={h.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-violet-600/10 to-emerald-600/10 p-5">
-              <h2 className="font-display text-lg font-bold text-white">Season {h.season?.label}</h2>
+              <h2 className="font-display text-lg font-bold text-slate-900">Season {h.season?.label}</h2>
               <div className="mt-3 grid gap-2 sm:grid-cols-3">
                 <Podium place={1} icon={<Trophy size={16} className="text-amber-400" />} name={h.champion?.team_name} />
-                <Podium place={2} icon={<Medal size={16} className="text-slate-300" />} name={h.runner_up?.team_name} />
+                <Podium place={2} icon={<Medal size={16} className="text-slate-700" />} name={h.runner_up?.team_name} />
                 <Podium place={3} icon={<Medal size={16} className="text-orange-400" />} name={h.third?.team_name} />
               </div>
             </div>
@@ -193,7 +193,7 @@ function Podium({ place, icon, name }: { place: number; icon: React.ReactNode; n
   return (
     <div className="rounded-lg bg-pitch-surface border border-pitch-border px-3 py-2 text-center">
       <div className="flex items-center justify-center gap-1 text-xs text-slate-500">{icon} #{place}</div>
-      <div className="mt-1 text-sm font-bold text-white">{name ?? "—"}</div>
+      <div className="mt-1 text-sm font-bold text-slate-900">{name ?? "—"}</div>
     </div>
   );
 }
@@ -201,8 +201,8 @@ function Podium({ place, icon, name }: { place: number; icon: React.ReactNode; n
 function Record({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between rounded-xl border border-pitch-border bg-pitch-surface px-4 py-3">
-      <span className="text-sm text-slate-400">{label}</span>
-      <span className="text-right text-sm font-bold text-white">{value}</span>
+      <span className="text-sm text-slate-500">{label}</span>
+      <span className="text-right text-sm font-bold text-slate-900">{value}</span>
     </div>
   );
 }

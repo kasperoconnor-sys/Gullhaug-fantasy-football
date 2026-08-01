@@ -121,12 +121,12 @@ export default function LineupPage() {
     setMessage(res.ok ? "Lineup saved!" : body.error ?? "Something went wrong.");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
-  if (!gameweekId) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">No open gameweek right now.</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
+  if (!gameweekId) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">No open gameweek right now.</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
-      <h1 className="font-display text-2xl font-black text-white">Lineup</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Lineup</h1>
 
       <div className="mt-4 flex gap-2 overflow-x-auto">
         {Object.keys(FORMATIONS).map((f) => (
@@ -139,7 +139,7 @@ export default function LineupPage() {
               setVice(null);
             }}
             className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${
-              formation === f ? "border-emerald-400 bg-emerald-500 text-slate-950" : "border-pitch-border bg-pitch-surface text-slate-400"
+              formation === f ? "border-emerald-400 bg-emerald-500 text-slate-950" : "border-pitch-border bg-pitch-surface text-slate-500"
             }`}
           >
             {f}
@@ -173,7 +173,7 @@ export default function LineupPage() {
                               if (vice === player.id) setVice(null);
                             }}
                             className={`rounded-md px-2 py-1 text-[10px] font-bold ${
-                              captain === player.id ? "bg-amber-500 text-slate-950" : "bg-slate-800 text-slate-400"
+                              captain === player.id ? "bg-amber-500 text-slate-950" : "bg-slate-800 text-slate-500"
                             }`}
                           >
                             C
@@ -185,7 +185,7 @@ export default function LineupPage() {
                               if (captain === player.id) setCaptain(null);
                             }}
                             className={`rounded-md px-2 py-1 text-[10px] font-bold ${
-                              vice === player.id ? "bg-sky-500 text-slate-950" : "bg-slate-800 text-slate-400"
+                              vice === player.id ? "bg-sky-500 text-slate-950" : "bg-slate-800 text-slate-500"
                             }`}
                           >
                             VC
@@ -204,7 +204,7 @@ export default function LineupPage() {
         <div className="mb-2 text-xs font-bold text-slate-500">Bench ({bench.length})</div>
         <div className="flex flex-wrap gap-2">
           {bench.map((p) => (
-            <span key={p.id} className="rounded-lg border border-pitch-border bg-pitch-surface px-2 py-1 text-xs text-slate-400">
+            <span key={p.id} className="rounded-lg border border-pitch-border bg-pitch-surface px-2 py-1 text-xs text-slate-500">
               {p.name}
             </span>
           ))}

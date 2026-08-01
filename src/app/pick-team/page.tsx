@@ -199,14 +199,14 @@ export default function PickTeamPage() {
     setMessage(res.ok ? "Lineup saved!" : body.error ?? "Something went wrong.");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
-  if (!gameweekId) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">No open gameweek right now.</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
+  if (!gameweekId) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">No open gameweek right now.</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-black text-white">{teamMeta?.team_name}</h1>
-        <Link href="/chips" className="flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-1.5 text-xs font-bold text-amber-300">
+        <h1 className="font-display text-2xl font-black text-slate-900">{teamMeta?.team_name}</h1>
+        <Link href="/chips" className="flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-3 py-1.5 text-xs font-bold text-amber-700">
           <Zap size={12} /> {chipsRemaining} chips left
         </Link>
       </div>
@@ -223,7 +223,7 @@ export default function PickTeamPage() {
             key={f}
             onClick={() => setFormationAndReconcile(f)}
             className={`shrink-0 rounded-full border px-4 py-2 text-sm font-bold ${
-              formation === f ? "border-emerald-400 bg-emerald-500 text-slate-950" : "border-pitch-border bg-pitch-surface text-slate-400"
+              formation === f ? "border-emerald-400 bg-emerald-500 text-slate-950" : "border-pitch-border bg-pitch-surface text-slate-500"
             }`}
           >
             {f}
@@ -300,7 +300,7 @@ function MiniStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-pitch-surface border border-pitch-border py-2">
       <div className="text-[10px] text-slate-500">{label}</div>
-      <div className="font-mono text-sm font-bold text-white">{value}</div>
+      <div className="font-mono text-sm font-bold text-slate-900">{value}</div>
     </div>
   );
 }

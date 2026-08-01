@@ -46,7 +46,7 @@ export default function SignupPage() {
 
   return (
     <div className="mx-auto max-w-sm px-4 py-16">
-      <h1 className="font-display text-2xl font-black text-white">Create account</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Create account</h1>
       <p className="mt-1 text-sm text-slate-500">Become a manager in Gullhaug Fantasy Football</p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -90,14 +90,14 @@ function Field({
 }) {
   return (
     <div>
-      <label className="text-xs font-semibold text-slate-400">{label}</label>
+      <label className="text-xs font-semibold text-slate-500">{label}</label>
       <input
         type={type}
         required
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-white outline-none focus:border-violet-500"
+        className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-violet-500"
       />
     </div>
   );

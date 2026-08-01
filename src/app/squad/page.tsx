@@ -103,13 +103,13 @@ export default function SquadPage() {
     router.push("/lineup");
   }
 
-  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>;
 
   const posPlayers = players.filter((p) => p.position === tab);
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-32 pt-6">
-      <h1 className="font-display text-2xl font-black text-white">Build your squad</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Build your squad</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         <StatCard label="Budget remaining" value={`${remaining.toFixed(1)}M`} accent="violet" />
@@ -122,7 +122,7 @@ export default function SquadPage() {
             key={p}
             onClick={() => setTab(p)}
             className={`rounded-xl border py-2 text-sm font-bold transition ${
-              tab === p ? "border-violet-500 bg-violet-600 text-white" : "border-pitch-border bg-pitch-surface text-slate-400"
+              tab === p ? "border-violet-500 bg-violet-600 text-white" : "border-pitch-border bg-pitch-surface text-slate-500"
             }`}
           >
             {p} <span className="font-normal opacity-70">{countByPos(p)}/{SQUAD_REQUIREMENTS[p]}</span>

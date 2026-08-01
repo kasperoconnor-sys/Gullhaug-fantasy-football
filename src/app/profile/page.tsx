@@ -47,7 +47,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">{team.team_name}</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">{team.team_name}</h1>
       <p className="mt-1 text-sm text-slate-500">Manager profile</p>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -65,20 +65,20 @@ export default async function ProfilePage() {
       </div>
 
       <div className="mt-6">
-        <h2 className="text-sm font-bold text-slate-400">Chips used</h2>
+        <h2 className="text-sm font-bold text-slate-500">Chips used</h2>
         <div className="mt-2 flex flex-wrap gap-2">
           {(chips ?? []).map((c: any, i: number) => (
             <span key={i} className="rounded-full bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-xs font-bold text-violet-300">
               {c.chip.replace("_", " ")}
             </span>
           ))}
-          {(!chips || chips.length === 0) && <span className="text-xs text-slate-600">None used yet</span>}
+          {(!chips || chips.length === 0) && <span className="text-xs text-slate-400">None used yet</span>}
         </div>
       </div>
 
       <div className="mt-4">
-        <h2 className="text-sm font-bold text-slate-400">Achievements unlocked</h2>
-        <p className="mt-1 font-mono text-lg font-bold text-white">{achievementsUnlocked?.length ?? 0} / 11</p>
+        <h2 className="text-sm font-bold text-slate-500">Achievements unlocked</h2>
+        <p className="mt-1 font-mono text-lg font-bold text-slate-900">{achievementsUnlocked?.length ?? 0} / 11</p>
       </div>
     </div>
   );

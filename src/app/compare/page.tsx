@@ -17,7 +17,7 @@ interface PlayerStats {
 
 export default function ComparePage() {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-2xl px-4 py-10 text-slate-400">Loading…</div>}>
+    <Suspense fallback={<div className="mx-auto max-w-2xl px-4 py-10 text-slate-500">Loading…</div>}>
       <CompareContent />
     </Suspense>
   );
@@ -87,14 +87,14 @@ function CompareContent() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
-      <h1 className="font-display text-2xl font-black text-white">Compare Players</h1>
+      <h1 className="font-display text-2xl font-black text-slate-900">Compare Players</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <select value={leftId} onChange={(e) => setLeftId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-white outline-none focus:border-violet-500">
+        <select value={leftId} onChange={(e) => setLeftId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
           <option value="">Player A</option>
           {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
-        <select value={rightId} onChange={(e) => setRightId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-white outline-none focus:border-violet-500">
+        <select value={rightId} onChange={(e) => setRightId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
           <option value="">Player B</option>
           {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
@@ -114,13 +114,13 @@ function CompareContent() {
           <div className="grid grid-cols-2 gap-3 pt-2">
             {[leftStats, rightStats].map((s, i) => (
               <div key={i} className="rounded-lg bg-pitch-surface border border-pitch-border p-3">
-                <div className="text-xs font-bold text-slate-400 mb-1">Next fixtures</div>
+                <div className="text-xs font-bold text-slate-500 mb-1">Next fixtures</div>
                 {s.nextFixtures.map((f, j) => (
-                  <div key={j} className="flex items-center gap-1 text-xs text-slate-300 py-0.5">
+                  <div key={j} className="flex items-center gap-1 text-xs text-slate-700 py-0.5">
                     {f.isHome ? "vs" : "@"} {f.opponent} <FDRBadge rating={f.fdr} />
                   </div>
                 ))}
-                {s.nextFixtures.length === 0 && <div className="text-xs text-slate-600">None scheduled</div>}
+                {s.nextFixtures.length === 0 && <div className="text-xs text-slate-400">None scheduled</div>}
               </div>
             ))}
           </div>
@@ -135,9 +135,9 @@ function Row({ label, left, right, highlight }: { label: string; left: any; righ
   const rightWins = highlight && typeof left === "number" && typeof right === "number" && right > left;
   return (
     <div className="grid grid-cols-3 items-center rounded-lg bg-pitch-surface border border-pitch-border px-3 py-2 text-sm">
-      <span className={`font-mono font-bold ${leftWins ? "text-emerald-400" : "text-white"}`}>{left}</span>
+      <span className={`font-mono font-bold ${leftWins ? "text-emerald-400" : "text-slate-900"}`}>{left}</span>
       <span className="text-center text-xs text-slate-500">{label}</span>
-      <span className={`text-right font-mono font-bold ${rightWins ? "text-emerald-400" : "text-white"}`}>{right}</span>
+      <span className={`text-right font-mono font-bold ${rightWins ? "text-emerald-400" : "text-slate-900"}`}>{right}</span>
     </div>
   );
 }
