@@ -125,7 +125,7 @@ export default function AdminResultsPage() {
       <select
         value={selectedFixtureId}
         onChange={(e) => setSelectedFixtureId(e.target.value)}
-        className="mt-4 block w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500 sm:w-auto"
+        className="mt-4 block w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900 sm:w-auto"
       >
         {fixtures.map((f) => (
           <option key={f.id} value={f.id}>
@@ -162,10 +162,10 @@ export default function AdminResultsPage() {
             <button onClick={saveResult} className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
               Save result & stats
             </button>
-            <button onClick={recalculate} disabled={recalculating} className="flex items-center gap-1 rounded-lg bg-violet-600 px-4 py-2 text-sm font-bold text-white hover:bg-violet-500 disabled:opacity-50">
+            <button onClick={recalculate} disabled={recalculating} className="flex items-center gap-1 rounded-lg bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 disabled:opacity-50">
               <RefreshCw size={14} className={recalculating ? "animate-spin" : ""} /> Update fantasy points
             </button>
-            {recalcMessage && <span className="text-sm text-emerald-400">{recalcMessage}</span>}
+            {recalcMessage && <span className="text-sm text-emerald-600">{recalcMessage}</span>}
           </div>
         </>
       )}
@@ -182,7 +182,7 @@ function NumField({ label, value, onChange }: { label: string; value: any; onCha
         min={0}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-0.5 block w-full rounded-md border border-pitch-border bg-pitch px-2 py-1 text-sm text-slate-900 outline-none focus:border-violet-500"
+        className="mt-0.5 block w-full rounded-md border border-pitch-border bg-pitch px-2 py-1 text-sm text-slate-900 outline-none focus:border-slate-900"
       />
     </div>
   );

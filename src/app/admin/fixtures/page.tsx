@@ -63,7 +63,7 @@ export default function AdminFixturesPage() {
         <Select label="Away team" value={awayId} onChange={setAwayId} options={teams.map((t) => ({ value: t.id, label: t.name }))} />
         <div>
           <label className="text-xs text-slate-500">Kickoff</label>
-          <input type="datetime-local" value={kickoff} onChange={(e) => setKickoff(e.target.value)} className="mt-1 block w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500" />
+          <input type="datetime-local" value={kickoff} onChange={(e) => setKickoff(e.target.value)} className="mt-1 block w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900" />
         </div>
         <Select label="FDR home team" value={String(homeFdr)} onChange={(v) => setHomeFdr(Number(v))} options={[1, 2, 3, 4, 5].map((n) => ({ value: String(n), label: String(n) }))} />
         <Select label="FDR away team" value={String(awayFdr)} onChange={(v) => setAwayFdr(Number(v))} options={[1, 2, 3, 4, 5].map((n) => ({ value: String(n), label: String(n) }))} />
@@ -90,7 +90,7 @@ function Select({ label, value, onChange, options }: { label: string; value: str
   return (
     <div>
       <label className="text-xs text-slate-500">{label}</label>
-      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 block w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 block w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900">
         {options.map((o) => (
           <option key={o.value} value={o.value}>{o.label}</option>
         ))}

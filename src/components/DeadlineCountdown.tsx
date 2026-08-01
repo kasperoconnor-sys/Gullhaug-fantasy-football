@@ -26,8 +26,8 @@ export default function DeadlineCountdown({ deadline, gameweekNumber }: { deadli
   if (!remaining) return null;
 
   return (
-    <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-600/20 to-emerald-600/10 p-4">
-      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-violet-300">
+    <div className="rounded-2xl border border-slate-300 bg-gradient-to-br from-slate-100 to-emerald-600/10 p-4">
+      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-600">
         <Clock size={14} />
         Next deadline — Gameweek {gameweekNumber}
       </div>

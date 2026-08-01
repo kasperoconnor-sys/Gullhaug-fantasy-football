@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import DeadlineCountdown from "@/components/DeadlineCountdown";
 import Link from "next/link";
-import { ArrowRight, Newspaper, Star, Award, TrendingUp, Radio } from "lucide-react";
+import { ArrowRight, Newspaper, Star, Award, TrendingUp, TrendingDown, Radio } from "lucide-react";
 
 export const revalidate = 30;
 
@@ -98,6 +98,27 @@ export default async function HomePage() {
 
   const { data: latestTotw } = await supabase.from("team_of_the_week").select("*, gameweek:gameweeks(*)").order("created_at", { ascending: false }).limit(1).maybeSingle();
 
+  // Biggest movers — rank change vs the previous gameweek.
+  const gwNumbersAll = [...new Set((allScores ?? []).map((s: any) => s.gameweek?.number).filter(Boolean))].sort((a: any, b: any) => a - b);
+  let movers: { team: string; change: number }[] = [];
+  if (gwNumbersAll.length >= 2) {
+    const latestGwNum = gwNumbersAll[gwNumbersAll.length - 1];
+    const priorGwNum = gwNumbersAll[gwNumbersAll.length - 2];
+    const rankAt = (uptoGw: number) => {
+      const totals = new Map<string, number>();
+      (allScores ?? []).forEach((s: any) => {
+        if ((s.gameweek?.number ?? 0) <= uptoGw) totals.set(s.fantasy_team_id, (totals.get(s.fantasy_team_id) ?? 0) + s.net_points);
+      });
+      return [...totals.entries()].sort((a, b) => b[1] - a[1]).map(([id]) => id);
+    };
+    const latestRank = rankAt(latestGwNum);
+    const priorRank = rankAt(priorGwNum);
+    movers = latestRank
+      .map((id, i) => ({ team: teamName.get(id) ?? "—", change: priorRank.indexOf(id) === -1 ? 0 : priorRank.indexOf(id) - i }))
+      .sort((a, b) => b.change - a.change)
+      .slice(0, 3);
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-4">
       {/* Greeting + rank strip */}
@@ -121,7 +142,7 @@ export default async function HomePage() {
             <Link href="/pick-team" className="flex-1 rounded-lg bg-emerald-500 py-2 text-center text-sm font-bold text-slate-950 hover:bg-emerald-400">
               Pick Team
             </Link>
-            <Link href="/transfers" className="flex-1 rounded-lg bg-violet-600 py-2 text-center text-sm font-bold text-white hover:bg-violet-500">
+            <Link href="/transfers" className="flex-1 rounded-lg bg-slate-900 py-2 text-center text-sm font-bold text-white hover:bg-slate-800">
               Transfers
             </Link>
           </div>
@@ -132,29 +153,45 @@ export default async function HomePage() {
 
       {/* Featured story */}
       {headline && (
-        <Link href="/statistics" className="mt-4 block rounded-2xl border border-pitch-border bg-pitch-surface p-4 hover:border-violet-500/40">
-          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-violet-400">
+        <Link href="/statistics" className="mt-4 block rounded-2xl border border-pitch-border bg-pitch-surface p-4 hover:border-slate-300">
+          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
             <Newspaper size={13} /> Featured Story
           </div>
           <p className="mt-1.5 text-sm font-semibold text-slate-900">"{headline}"</p>
-          <span className="mt-1 inline-block text-xs font-semibold text-violet-400">Read more →</span>
+          <span className="mt-1 inline-block text-xs font-semibold text-emerald-700">Read more →</span>
         </Link>
       )}
 
       {/* Quick cards */}
-      <div className="mt-4 grid grid-cols-3 gap-2">
-        <QuickCard href="/team-of-the-week" icon={<Star size={18} className="text-amber-400" />} label="Team of the Week" />
-        <QuickCard href="/statistics" icon={<Award size={18} className="text-violet-400" />} label="Weekly Awards" />
-        <QuickCard href="/leagues" icon={<TrendingUp size={18} className="text-emerald-400" />} label="Biggest Movers" />
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        <QuickCard href="/team-of-the-week" icon={<Star size={18} className="text-amber-500" />} label="Team of the Week" />
+        <QuickCard href="/statistics" icon={<Award size={18} className="text-emerald-700" />} label="Weekly Awards" />
+      </div>
+
+      {/* Biggest movers — own section, middle of the page */}
+      <div className="mt-4 rounded-2xl border border-pitch-border bg-pitch-surface p-4">
+        <h2 className="text-sm font-bold text-slate-700">Biggest Movers</h2>
+        <div className="mt-2 space-y-1.5">
+          {movers.map((m, i) => (
+            <div key={i} className="flex items-center justify-between text-sm">
+              <span className="text-slate-900">{m.team}</span>
+              <span className={`flex items-center gap-1 font-bold ${m.change > 0 ? "text-emerald-600" : m.change < 0 ? "text-rose-600" : "text-slate-400"}`}>
+                {m.change > 0 ? <TrendingUp size={14} /> : m.change < 0 ? <TrendingDown size={14} /> : null}
+                {m.change > 0 ? `+${m.change}` : m.change}
+              </span>
+            </div>
+          ))}
+          {movers.length === 0 && <p className="text-sm text-slate-500">Need at least 2 gameweeks of data.</p>}
+        </div>
       </div>
 
       {/* Live fixtures */}
       {liveCount > 0 && (
-        <Link href="/fixtures" className="mt-4 flex items-center justify-between rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 hover:bg-rose-500/15">
-          <span className="flex items-center gap-2 text-sm font-bold text-rose-300">
+        <Link href="/fixtures" className="mt-4 flex items-center justify-between rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 hover:bg-rose-100">
+          <span className="flex items-center gap-2 text-sm font-bold text-rose-700">
             <Radio size={16} className="animate-pulse" /> {liveCount} matches live
           </span>
-          <span className="text-xs font-semibold text-rose-300">View →</span>
+          <span className="text-xs font-semibold text-rose-700">View →</span>
         </Link>
       )}
 
@@ -162,7 +199,7 @@ export default async function HomePage() {
       <div className="mt-4 rounded-2xl border border-pitch-border bg-pitch-surface p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-bold text-slate-700">League Snapshot</h2>
-          <Link href="/leagues" className="flex items-center gap-0.5 text-[11px] font-semibold text-violet-400">
+          <Link href="/leagues" className="flex items-center gap-0.5 text-[11px] font-semibold text-emerald-700">
             View Table <ArrowRight size={11} />
           </Link>
         </div>
@@ -172,7 +209,7 @@ export default async function HomePage() {
               <span className="text-slate-900">
                 {i + 1}. {teamName.get(id)}
               </span>
-              <span className="font-mono font-bold text-emerald-400">{pts}</span>
+              <span className="font-mono font-bold text-emerald-700">{pts}</span>
             </div>
           ))}
           {leaderboard.length === 0 && <p className="text-sm text-slate-500">No scores yet.</p>}
@@ -199,7 +236,7 @@ function MiniStat({ label, value }: { label: string; value: string | number }) {
 
 function QuickCard({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
   return (
-    <Link href={href} className="flex flex-col items-center gap-1.5 rounded-xl border border-pitch-border bg-pitch-surface px-2 py-4 text-center hover:border-violet-500/40">
+    <Link href={href} className="flex flex-col items-center gap-1.5 rounded-xl border border-pitch-border bg-pitch-surface px-2 py-4 text-center hover:border-slate-300">
       {icon}
       <span className="text-[11px] font-semibold text-slate-700">{label}</span>
     </Link>

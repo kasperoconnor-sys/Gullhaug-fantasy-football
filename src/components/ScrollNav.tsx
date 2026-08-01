@@ -19,7 +19,7 @@ export default function ScrollNav() {
               href={item.href}
               className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors duration-150 active:scale-95 ${
                 active
-                  ? "border-violet-200 bg-violet-50 text-violet-700"
+                  ? "border-slate-300 bg-slate-100 text-slate-900"
                   : "border-transparent text-slate-500 hover:bg-pitch-surface2 hover:text-slate-900"
               }`}
             >

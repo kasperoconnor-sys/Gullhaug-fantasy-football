@@ -54,8 +54,8 @@ export default function SignupPage() {
         <Field label="Team name" value={teamName} onChange={setTeamName} placeholder="e.g. Gullhaug Giants" />
         <Field label="Email" value={email} onChange={setEmail} type="email" />
         <Field label="Password" value={password} onChange={setPassword} type="password" />
-        {error && <p className="text-sm text-rose-400">{error}</p>}
-        {infoMessage && <p className="text-sm text-emerald-400">{infoMessage}</p>}
+        {error && <p className="text-sm text-rose-600">{error}</p>}
+        {infoMessage && <p className="text-sm text-emerald-600">{infoMessage}</p>}
         <button
           type="submit"
           disabled={loading}
@@ -67,7 +67,7 @@ export default function SignupPage() {
 
       <p className="mt-4 text-sm text-slate-500">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-violet-400">
+        <Link href="/login" className="font-semibold text-emerald-700">
           Log in
         </Link>
       </p>
@@ -97,7 +97,7 @@ function Field({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-violet-500"
+        className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-slate-900"
       />
     </div>
   );

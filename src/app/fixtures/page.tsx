@@ -36,7 +36,7 @@ export default async function FixturePlannerPage({ searchParams }: { searchParam
       <div className="flex items-center justify-between">
         <h1 className="font-display text-2xl font-black text-slate-900">Fixture Planner</h1>
         <div className="flex gap-2 text-xs font-bold">
-          <Link href="/fixtures" className={`rounded-full px-3 py-1.5 ${!sortEasiest ? "bg-violet-600 text-white" : "bg-pitch-surface text-slate-500 border border-pitch-border"}`}>
+          <Link href="/fixtures" className={`rounded-full px-3 py-1.5 ${!sortEasiest ? "bg-slate-900 text-white" : "bg-pitch-surface text-slate-500 border border-pitch-border"}`}>
             By team
           </Link>
           <Link href="/fixtures?sort=easiest" className={`rounded-full px-3 py-1.5 ${sortEasiest ? "bg-emerald-500 text-slate-950" : "bg-pitch-surface text-slate-500 border border-pitch-border"}`}>
@@ -51,7 +51,7 @@ export default async function FixturePlannerPage({ searchParams }: { searchParam
           <div key={team.id} className="rounded-xl border border-pitch-border bg-pitch-surface p-4">
             <div className="flex items-center justify-between">
               <span className="font-bold text-slate-900">
-                {team.name} {team.is_gullhaug && <span className="text-emerald-400">★</span>}
+                {team.name} {team.is_gullhaug && <span className="text-emerald-600">★</span>}
               </span>
               {upcoming.length > 0 && <span className="text-xs text-slate-500">avg FDR {avgFdr.toFixed(1)}</span>}
             </div>

@@ -68,7 +68,7 @@ export default async function ProfilePage() {
         <h2 className="text-sm font-bold text-slate-500">Chips used</h2>
         <div className="mt-2 flex flex-wrap gap-2">
           {(chips ?? []).map((c: any, i: number) => (
-            <span key={i} className="rounded-full bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-xs font-bold text-violet-300">
+            <span key={i} className="rounded-full bg-slate-100 border border-slate-300 px-3 py-1 text-xs font-bold text-slate-600">
               {c.chip.replace("_", " ")}
             </span>
           ))}

@@ -38,7 +38,7 @@ export default function PlayerCard({
           ? "border-emerald-500/50 shadow-[0_0_0_1px_rgba(16,185,129,0.5)] bg-emerald-500/10"
           : disabled
           ? "opacity-40"
-          : "hover:border-violet-300"
+          : "hover:border-slate-300"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -60,7 +60,7 @@ export default function PlayerCard({
       <div className="flex items-center gap-2">
         {rightSlot}
         <span className="font-mono text-sm font-bold text-slate-900">{player.price.toFixed(1)}M</span>
-        {selected && <Check size={16} className="text-emerald-400" />}
+        {selected && <Check size={16} className="text-emerald-600" />}
       </div>
     </button>
   );

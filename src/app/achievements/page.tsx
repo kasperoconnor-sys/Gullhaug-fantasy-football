@@ -8,7 +8,7 @@ import { Lock } from "lucide-react";
 const RARITY_STYLE: Record<string, string> = {
   common: "border-slate-200 bg-slate-50 text-slate-600",
   rare: "border-sky-200 bg-sky-50 text-sky-700",
-  epic: "border-violet-200 bg-violet-50 text-violet-700",
+  epic: "border-slate-300 bg-slate-100 text-slate-900",
   legendary: "border-amber-300 bg-amber-50 text-amber-700",
 };
 

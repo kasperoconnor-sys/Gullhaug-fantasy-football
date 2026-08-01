@@ -187,14 +187,14 @@ export default function TransfersPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search players…"
-                className="w-full rounded-lg border border-pitch-border bg-pitch-surface py-2 pl-8 pr-3 text-sm text-slate-900 outline-none focus:border-violet-500"
+                className="w-full rounded-lg border border-pitch-border bg-pitch-surface py-2 pl-8 pr-3 text-sm text-slate-900 outline-none focus:border-slate-900"
               />
             </div>
-            <select value={clubFilter} onChange={(e) => setClubFilter(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
+            <select value={clubFilter} onChange={(e) => setClubFilter(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900">
               <option value="">All clubs</option>
               {clubs.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
-            <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
+            <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900">
               <option value="form">Sort: Form</option>
               <option value="points">Sort: Total points</option>
               <option value="price">Sort: Price</option>
@@ -224,14 +224,14 @@ export default function TransfersPage() {
       {playerOut && playerIn && (
         <div className="mt-6 rounded-xl border border-pitch-border bg-pitch-surface p-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
-            <ArrowRightLeft size={16} className="text-violet-400" />
+            <ArrowRightLeft size={16} className="text-emerald-700" />
             {playerOut.name} → {playerIn.name}
           </div>
           <div className="mt-2 text-sm text-slate-500">Budget after swap: {budgetAfterSwap.toFixed(1)}M</div>
           <div className="text-sm text-slate-500">
             Cost: {willBeFree ? "Free transfer" : `-${pointCost} points (no free transfers left)`}
           </div>
-          {message && <p className="mt-2 text-xs text-emerald-400">{message}</p>}
+          {message && <p className="mt-2 text-xs text-emerald-600">{message}</p>}
           <button
             onClick={confirmTransfer}
             disabled={saving || budgetAfterSwap < 0}
@@ -277,7 +277,7 @@ function RichPlayerRow({
           <div>
             <div className="flex items-center gap-1 text-sm font-semibold text-slate-900">
               {player.name}
-              {player.isDifferential && <Gem size={12} className="text-violet-400" />}
+              {player.isDifferential && <Gem size={12} className="text-emerald-700" />}
             </div>
             <div className="text-xs text-slate-500">
               {player.team?.name} · {player.ownershipPct.toFixed(1)}% owned · form {player.form.toFixed(1)}
@@ -298,7 +298,7 @@ function RichPlayerRow({
           {player.next5.length === 0 && <span className="text-[11px] text-slate-400">No fixtures scheduled</span>}
         </div>
         {compareHref && (
-          <Link href={compareHref} className="flex items-center gap-1 rounded-md bg-violet-500/15 border border-violet-500/30 px-2 py-1 text-[10px] font-bold text-violet-300">
+          <Link href={compareHref} className="flex items-center gap-1 rounded-md bg-slate-100 border border-slate-300 px-2 py-1 text-[10px] font-bold text-slate-600">
             <GitCompare size={11} /> Compare
           </Link>
         )}

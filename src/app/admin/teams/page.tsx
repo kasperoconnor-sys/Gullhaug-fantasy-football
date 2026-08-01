@@ -71,7 +71,7 @@ export default function AdminTeamsPage() {
         <button onClick={addTeam} disabled={saving} className="flex items-center gap-1 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400 disabled:opacity-50">
           <Plus size={14} /> {saving ? "Adding…" : "Add"}
         </button>
-        {error && <p className="w-full text-sm text-rose-400">{error}</p>}
+        {error && <p className="w-full text-sm text-rose-600">{error}</p>}
       </div>
 
       {!loading && (
@@ -79,10 +79,10 @@ export default function AdminTeamsPage() {
           {teams.map((t: any) => (
             <div key={t.id} className="flex items-center justify-between px-4 py-2.5">
               <span className="text-sm text-slate-900">
-                {t.name} ({t.short_name}) {t.is_gullhaug && <span className="text-emerald-400">★ Gullhaug</span>}
+                {t.name} ({t.short_name}) {t.is_gullhaug && <span className="text-emerald-600">★ Gullhaug</span>}
                 {t.league && <span className="ml-2 text-xs text-slate-500">— {t.league}</span>}
               </span>
-              <button onClick={() => removeTeam(t.id)} className="text-slate-500 hover:text-rose-400">
+              <button onClick={() => removeTeam(t.id)} className="text-slate-500 hover:text-rose-600">
                 <Trash2 size={16} />
               </button>
             </div>
@@ -102,7 +102,7 @@ function Field({ label, value, onChange, placeholder }: { label: string; value: 
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 block rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500"
+        className="mt-1 block rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
       />
     </div>
   );

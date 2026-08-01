@@ -124,7 +124,7 @@ export default function AllTimePage() {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`rounded-full px-4 py-2 text-sm font-bold ${tab === t ? "bg-violet-600 text-white" : "bg-pitch-surface border border-pitch-border text-slate-500"}`}
+            className={`rounded-full px-4 py-2 text-sm font-bold ${tab === t ? "bg-slate-900 text-white" : "bg-pitch-surface border border-pitch-border text-slate-500"}`}
           >
             {t === "career" ? "Your Career" : t === "hof" ? "Hall of Fame" : "Global Records"}
           </button>
@@ -148,7 +148,7 @@ export default function AllTimePage() {
             <h2 className="text-sm font-bold text-slate-500">Chips used</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               {career.chipsUsed.map((c: string, i: number) => (
-                <span key={i} className="rounded-full bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-xs font-bold text-violet-300">
+                <span key={i} className="rounded-full bg-slate-100 border border-slate-300 px-3 py-1 text-xs font-bold text-slate-600">
                   {c.replace("_", " ")}
                 </span>
               ))}
@@ -161,10 +161,10 @@ export default function AllTimePage() {
       {tab === "hof" && (
         <div className="mt-5 space-y-6">
           {hof.map((h: any) => (
-            <div key={h.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-violet-600/10 to-emerald-600/10 p-5">
+            <div key={h.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-slate-100 to-emerald-600/10 p-5">
               <h2 className="font-display text-lg font-bold text-slate-900">Season {h.season?.label}</h2>
               <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                <Podium place={1} icon={<Trophy size={16} className="text-amber-400" />} name={h.champion?.team_name} />
+                <Podium place={1} icon={<Trophy size={16} className="text-amber-600" />} name={h.champion?.team_name} />
                 <Podium place={2} icon={<Medal size={16} className="text-slate-700" />} name={h.runner_up?.team_name} />
                 <Podium place={3} icon={<Medal size={16} className="text-orange-400" />} name={h.third?.team_name} />
               </div>

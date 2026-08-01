@@ -132,7 +132,7 @@ function Board({ title, rows, valueKey, suffix, decimals }: { title: string; row
                 <div className="text-xs text-slate-500">{p.team?.name}</div>
               </div>
             </div>
-            <span className="font-mono text-sm font-bold text-emerald-400">
+            <span className="font-mono text-sm font-bold text-emerald-600">
               {decimals ? p[valueKey].toFixed(1) : p[valueKey]}
               {suffix}
             </span>

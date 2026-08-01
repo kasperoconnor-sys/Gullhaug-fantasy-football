@@ -60,7 +60,7 @@ export default function SettingsPage() {
           <input
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-violet-500"
+            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-slate-900"
           />
         </div>
         <div>
@@ -68,11 +68,11 @@ export default function SettingsPage() {
           <input
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-violet-500"
+            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-slate-900"
           />
         </div>
 
-        {message && <p className="text-sm text-emerald-400">{message}</p>}
+        {message && <p className="text-sm text-emerald-600">{message}</p>}
 
         <button
           onClick={save}
@@ -82,7 +82,7 @@ export default function SettingsPage() {
           {saving ? "Saving…" : "Save changes"}
         </button>
 
-        <a href="/api/auth/signout" className="block w-full rounded-lg border border-rose-500/30 bg-rose-500/10 py-2.5 text-center font-bold text-rose-300 hover:bg-rose-500/20">
+        <a href="/api/auth/signout" className="block w-full rounded-lg border border-rose-500/30 bg-rose-500/10 py-2.5 text-center font-bold text-rose-700 hover:bg-rose-500/20">
           Log out
         </a>
       </div>

@@ -26,7 +26,7 @@ export default function AdminNav() {
               key={l.href}
               href={l.href}
               className={`shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-semibold ${
-                active ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-400" : "border-pitch-border bg-pitch-surface text-slate-500"
+                active ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-600" : "border-pitch-border bg-pitch-surface text-slate-500"
               }`}
             >
               {l.label}

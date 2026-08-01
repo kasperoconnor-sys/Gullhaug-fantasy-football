@@ -73,22 +73,22 @@ export default function ChipsPage() {
       <h1 className="font-display text-2xl font-black text-slate-900">Chips</h1>
       <p className="mt-1 text-sm text-slate-500">Each chip can only be used once per season.</p>
 
-      {message && <p className="mt-3 text-sm text-emerald-400">{message}</p>}
+      {message && <p className="mt-3 text-sm text-emerald-600">{message}</p>}
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {CHIPS.map(({ id, name, description, icon: Icon }) => {
           const isUsed = used.includes(id);
           return (
-            <div key={id} className={`rounded-xl border p-4 ${isUsed ? "border-pitch-border bg-pitch-surface/40 opacity-50" : "border-violet-500/30 bg-pitch-surface"}`}>
+            <div key={id} className={`rounded-xl border p-4 ${isUsed ? "border-pitch-border bg-pitch-surface/40 opacity-50" : "border-slate-300 bg-pitch-surface"}`}>
               <div className="flex items-center gap-2 text-slate-900">
-                <Icon size={18} className="text-violet-400" />
+                <Icon size={18} className="text-emerald-700" />
                 <span className="font-bold">{name}</span>
               </div>
               <p className="mt-1 text-xs text-slate-500">{description}</p>
               <button
                 onClick={() => activate(id)}
                 disabled={isUsed}
-                className="mt-3 w-full rounded-lg bg-violet-600 py-2 text-sm font-bold text-white hover:bg-violet-500 disabled:bg-slate-800 disabled:text-slate-500"
+                className="mt-3 w-full rounded-lg bg-slate-900 py-2 text-sm font-bold text-white hover:bg-slate-800 disabled:bg-slate-800 disabled:text-slate-500"
               >
                 {isUsed ? "Already used" : "Activate for this gameweek"}
               </button>

@@ -69,7 +69,7 @@ export default function CalendarPage() {
                     <div className="text-xs text-slate-500">{new Date(f.kickoff_at).toLocaleDateString("en-GB")}</div>
                   </div>
                   <div className="flex items-center gap-2">
-                    {f.is_final && <span className="font-mono text-sm text-emerald-400">{f.home_score}–{f.away_score}</span>}
+                    {f.is_final && <span className="font-mono text-sm text-emerald-600">{f.home_score}–{f.away_score}</span>}
                     {expanded === f.id ? <ChevronUp size={16} className="text-slate-500" /> : <ChevronDown size={16} className="text-slate-500" />}
                   </div>
                 </button>

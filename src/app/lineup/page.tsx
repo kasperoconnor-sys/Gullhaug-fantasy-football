@@ -213,11 +213,11 @@ export default function LineupPage() {
 
       <div className="fixed bottom-0 left-0 right-0 border-t border-pitch-border bg-pitch/95 backdrop-blur">
         <div className="mx-auto max-w-2xl px-4 py-3">
-          {message && <p className="mb-2 text-center text-xs text-emerald-400">{message}</p>}
+          {message && <p className="mb-2 text-center text-xs text-emerald-600">{message}</p>}
           <button
             onClick={save}
             disabled={!lineupValid || !captain || !vice || saving}
-            className="w-full rounded-xl bg-violet-600 py-3 font-bold text-white hover:bg-violet-500 disabled:bg-slate-800 disabled:text-slate-500"
+            className="w-full rounded-xl bg-slate-900 py-3 font-bold text-white hover:bg-slate-800 disabled:bg-slate-800 disabled:text-slate-500"
           >
             {saving ? "Saving…" : "Save lineup"}
           </button>

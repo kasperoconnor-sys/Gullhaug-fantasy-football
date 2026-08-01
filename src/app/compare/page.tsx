@@ -90,11 +90,11 @@ function CompareContent() {
       <h1 className="font-display text-2xl font-black text-slate-900">Compare Players</h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <select value={leftId} onChange={(e) => setLeftId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
+        <select value={leftId} onChange={(e) => setLeftId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900">
           <option value="">Player A</option>
           {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
-        <select value={rightId} onChange={(e) => setRightId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500">
+        <select value={rightId} onChange={(e) => setRightId(e.target.value)} className="rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900">
           <option value="">Player B</option>
           {players.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
@@ -135,9 +135,9 @@ function Row({ label, left, right, highlight }: { label: string; left: any; righ
   const rightWins = highlight && typeof left === "number" && typeof right === "number" && right > left;
   return (
     <div className="grid grid-cols-3 items-center rounded-lg bg-pitch-surface border border-pitch-border px-3 py-2 text-sm">
-      <span className={`font-mono font-bold ${leftWins ? "text-emerald-400" : "text-slate-900"}`}>{left}</span>
+      <span className={`font-mono font-bold ${leftWins ? "text-emerald-600" : "text-slate-900"}`}>{left}</span>
       <span className="text-center text-xs text-slate-500">{label}</span>
-      <span className={`text-right font-mono font-bold ${rightWins ? "text-emerald-400" : "text-slate-900"}`}>{right}</span>
+      <span className={`text-right font-mono font-bold ${rightWins ? "text-emerald-600" : "text-slate-900"}`}>{right}</span>
     </div>
   );
 }

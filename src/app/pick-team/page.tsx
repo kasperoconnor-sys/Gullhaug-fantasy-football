@@ -232,7 +232,7 @@ export default function PickTeamPage() {
       </div>
 
       {selectedForSwap && (
-        <div className="mt-3 flex items-center gap-2 rounded-lg bg-violet-500/15 border border-violet-500/30 px-3 py-2 text-xs font-semibold text-violet-300">
+        <div className="mt-3 flex items-center gap-2 rounded-lg bg-slate-100 border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-600">
           <ArrowLeftRight size={14} />
           Tap another player of the same position to swap — or tap them again to cancel.
         </div>
@@ -286,7 +286,7 @@ export default function PickTeamPage() {
           <button
             onClick={save}
             disabled={!lineupValid || !captain || !vice || saving}
-            className="w-full rounded-xl bg-violet-600 py-3 font-bold text-white hover:bg-violet-500 disabled:bg-slate-800 disabled:text-slate-500"
+            className="w-full rounded-xl bg-slate-900 py-3 font-bold text-white hover:bg-slate-800 disabled:bg-slate-800 disabled:text-slate-500"
           >
             {saving ? "Saving…" : "Save lineup"}
           </button>
@@ -329,7 +329,7 @@ function PitchToken({
       onClick={onTap}
       className={`flex w-[92px] flex-col items-center rounded-xl border px-1.5 py-2 text-center cursor-pointer transition ${
         selected
-          ? "border-violet-400 bg-violet-500/30 ring-2 ring-violet-400"
+          ? "border-slate-400 bg-slate-200 ring-2 ring-slate-400"
           : bench
           ? "border-pitch-border bg-pitch-surface/80"
           : "border-white/20 bg-black/30 backdrop-blur"

@@ -40,7 +40,7 @@ export default function LoginPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-violet-500"
+            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-slate-900"
           />
         </div>
         <div>
@@ -50,14 +50,14 @@ export default function LoginPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-violet-500"
+            className="mt-1 w-full rounded-lg border border-pitch-border bg-pitch-surface px-3 py-2 text-slate-900 outline-none focus:border-slate-900"
           />
         </div>
-        {error && <p className="text-sm text-rose-400">{error}</p>}
+        {error && <p className="text-sm text-rose-600">{error}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-violet-600 py-2.5 font-bold text-white hover:bg-violet-500 disabled:opacity-50"
+          className="w-full rounded-lg bg-slate-900 py-2.5 font-bold text-white hover:bg-slate-800 disabled:opacity-50"
         >
           {loading ? "Logging in…" : "Log in"}
         </button>
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
       <p className="mt-4 text-sm text-slate-500">
         New here?{" "}
-        <Link href="/signup" className="font-semibold text-violet-400">
+        <Link href="/signup" className="font-semibold text-emerald-700">
           Create account
         </Link>
       </p>

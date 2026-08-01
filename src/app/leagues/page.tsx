@@ -84,7 +84,7 @@ export default function LeaguesPage() {
     <div className="mx-auto max-w-2xl px-4 py-6">
       <h1 className="font-display text-2xl font-black text-slate-900">Leagues</h1>
 
-      {message && <p className="mt-3 text-sm text-emerald-400">{message}</p>}
+      {message && <p className="mt-3 text-sm text-emerald-600">{message}</p>}
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <div className="rounded-xl border border-pitch-border bg-pitch-surface p-4">
@@ -93,9 +93,9 @@ export default function LeaguesPage() {
             value={newLeagueName}
             onChange={(e) => setNewLeagueName(e.target.value)}
             placeholder="League name"
-            className="mt-2 w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500"
+            className="mt-2 w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
           />
-          <button onClick={createLeague} className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-violet-600 py-2 text-sm font-bold text-white hover:bg-violet-500">
+          <button onClick={createLeague} className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-slate-900 py-2 text-sm font-bold text-white hover:bg-slate-800">
             <Plus size={14} /> Create
           </button>
         </div>
@@ -105,7 +105,7 @@ export default function LeaguesPage() {
             value={inviteCode}
             onChange={(e) => setInviteCode(e.target.value)}
             placeholder="Invite code"
-            className="mt-2 w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-500"
+            className="mt-2 w-full rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
           />
           <button onClick={joinLeague} className="mt-2 w-full rounded-lg bg-emerald-500 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
             Join
@@ -116,7 +116,7 @@ export default function LeaguesPage() {
       <h2 className="mt-8 text-sm font-bold text-slate-500">Your leagues</h2>
       <div className="mt-2 space-y-2">
         {leagues.map((l) => (
-          <Link key={l.id} href={`/leagues/${l.id}`} className="flex items-center justify-between rounded-xl border border-pitch-border bg-pitch-surface px-4 py-3 hover:border-violet-500/50">
+          <Link key={l.id} href={`/leagues/${l.id}`} className="flex items-center justify-between rounded-xl border border-pitch-border bg-pitch-surface px-4 py-3 hover:border-slate-400">
             <span className="flex items-center gap-2 font-semibold text-slate-900">
               <Users size={16} className="text-slate-500" />
               {l.name}

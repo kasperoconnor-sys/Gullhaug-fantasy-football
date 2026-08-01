@@ -122,7 +122,7 @@ export default function SquadPage() {
             key={p}
             onClick={() => setTab(p)}
             className={`rounded-xl border py-2 text-sm font-bold transition ${
-              tab === p ? "border-violet-500 bg-violet-600 text-white" : "border-pitch-border bg-pitch-surface text-slate-500"
+              tab === p ? "border-slate-900 bg-slate-900 text-white" : "border-pitch-border bg-pitch-surface text-slate-500"
             }`}
           >
             {p} <span className="font-normal opacity-70">{countByPos(p)}/{SQUAD_REQUIREMENTS[p]}</span>
@@ -150,9 +150,9 @@ export default function SquadPage() {
       <div className="fixed bottom-0 left-0 right-0 border-t border-pitch-border bg-pitch/95 backdrop-blur">
         <div className="mx-auto max-w-2xl px-4 py-3">
           {!validation.valid && selected.length > 0 && (
-            <p className="mb-2 text-center text-xs text-amber-400">{validation.errors[0]}</p>
+            <p className="mb-2 text-center text-xs text-amber-600">{validation.errors[0]}</p>
           )}
-          {message && <p className="mb-2 text-center text-xs text-emerald-400">{message}</p>}
+          {message && <p className="mb-2 text-center text-xs text-emerald-600">{message}</p>}
           <button
             onClick={saveSquad}
             disabled={!validation.valid || saving}

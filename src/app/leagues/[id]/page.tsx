@@ -33,12 +33,12 @@ export default async function LeagueDetailPage({ params }: { params: { id: strin
         {standings.map((s, i) => (
           <div key={s.team.id} className="flex items-center justify-between px-4 py-3">
             <div className="flex items-center gap-3">
-              <span className={`w-5 text-sm font-bold ${i === 0 ? "text-amber-400" : "text-slate-500"}`}>
+              <span className={`w-5 text-sm font-bold ${i === 0 ? "text-amber-600" : "text-slate-500"}`}>
                 {i === 0 ? <Trophy size={16} /> : i + 1}
               </span>
               <span className="text-sm font-semibold text-slate-900">{s.team.team_name}</span>
             </div>
-            <span className="font-mono text-sm font-bold text-emerald-400">{s.total} p</span>
+            <span className="font-mono text-sm font-bold text-emerald-600">{s.total} p</span>
           </div>
         ))}
         {standings.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">No members yet.</p>}

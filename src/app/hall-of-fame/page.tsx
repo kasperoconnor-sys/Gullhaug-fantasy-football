@@ -28,11 +28,11 @@ export default async function HallOfFamePage() {
 
       <div className="mt-6 space-y-6">
         {(archive ?? []).map((h: any) => (
-          <div key={h.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-violet-600/10 to-emerald-600/10 p-5">
+          <div key={h.id} className="rounded-2xl border border-pitch-border bg-gradient-to-br from-slate-100 to-emerald-600/10 p-5">
             <h2 className="font-display text-xl font-bold text-slate-900">Season {h.season?.label}</h2>
 
             <div className="mt-4 grid gap-2 sm:grid-cols-3">
-              <Podium place={1} icon={<Trophy size={18} className="text-amber-400" />} name={h.champion?.team_name} />
+              <Podium place={1} icon={<Trophy size={18} className="text-amber-600" />} name={h.champion?.team_name} />
               <Podium place={2} icon={<Medal size={18} className="text-slate-700" />} name={h.runner_up?.team_name} />
               <Podium place={3} icon={<Medal size={18} className="text-orange-400" />} name={h.third?.team_name} />
             </div>
