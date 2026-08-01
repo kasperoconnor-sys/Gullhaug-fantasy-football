@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import DeadlineCountdown from "@/components/DeadlineCountdown";
 import Link from "next/link";
-import { ArrowRight, Newspaper, Star, Award, TrendingUp, TrendingDown, Radio } from "lucide-react";
+import { ArrowRight, Newspaper, TrendingUp, TrendingDown, Radio } from "lucide-react";
 
 export const revalidate = 30;
 
@@ -162,27 +162,27 @@ export default async function HomePage() {
         </Link>
       )}
 
-      {/* Quick cards */}
-      <div className="mt-4 grid grid-cols-2 gap-2">
-        <QuickCard href="/team-of-the-week" icon={<Star size={18} className="text-amber-500" />} label="Team of the Week" />
-        <QuickCard href="/statistics" icon={<Award size={18} className="text-emerald-700" />} label="Weekly Awards" />
-      </div>
+      {/* Quick cards — Biggest Movers sits between the other two */}
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        <QuickCard href="/team-of-the-week" label="Team of the Week" />
 
-      {/* Biggest movers — own section, middle of the page */}
-      <div className="mt-4 rounded-2xl border border-pitch-border bg-pitch-surface p-4">
-        <h2 className="text-sm font-bold text-slate-700">Biggest Movers</h2>
-        <div className="mt-2 space-y-1.5">
-          {movers.map((m, i) => (
-            <div key={i} className="flex items-center justify-between text-sm">
-              <span className="text-slate-900">{m.team}</span>
-              <span className={`flex items-center gap-1 font-bold ${m.change > 0 ? "text-emerald-600" : m.change < 0 ? "text-rose-600" : "text-slate-400"}`}>
-                {m.change > 0 ? <TrendingUp size={14} /> : m.change < 0 ? <TrendingDown size={14} /> : null}
-                {m.change > 0 ? `+${m.change}` : m.change}
-              </span>
-            </div>
-          ))}
-          {movers.length === 0 && <p className="text-sm text-slate-500">Need at least 2 gameweeks of data.</p>}
-        </div>
+        <Link href="/leagues" className="rounded-xl border border-pitch-border bg-pitch-surface px-2 py-3 text-center hover:border-slate-300">
+          <span className="text-[11px] font-semibold text-slate-700">Biggest Movers</span>
+          <div className="mt-1.5 space-y-1">
+            {movers.slice(0, 2).map((m, i) => (
+              <div key={i} className="flex items-center justify-center gap-1 text-[11px]">
+                <span className="truncate text-slate-900">{m.team}</span>
+                <span className={`flex items-center gap-0.5 font-bold ${m.change > 0 ? "text-emerald-600" : m.change < 0 ? "text-rose-600" : "text-slate-400"}`}>
+                  {m.change > 0 ? <TrendingUp size={11} /> : m.change < 0 ? <TrendingDown size={11} /> : null}
+                  {m.change > 0 ? `+${m.change}` : m.change}
+                </span>
+              </div>
+            ))}
+            {movers.length === 0 && <span className="text-[11px] text-slate-500">No data yet</span>}
+          </div>
+        </Link>
+
+        <QuickCard href="/statistics" label="Weekly Awards" />
       </div>
 
       {/* Live fixtures */}
@@ -234,10 +234,9 @@ function MiniStat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-function QuickCard({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
+function QuickCard({ href, label }: { href: string; label: string }) {
   return (
-    <Link href={href} className="flex flex-col items-center gap-1.5 rounded-xl border border-pitch-border bg-pitch-surface px-2 py-4 text-center hover:border-slate-300">
-      {icon}
+    <Link href={href} className="flex flex-col items-center justify-center rounded-xl border border-pitch-border bg-pitch-surface px-2 py-4 text-center hover:border-slate-300">
       <span className="text-[11px] font-semibold text-slate-700">{label}</span>
     </Link>
   );
