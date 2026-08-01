@@ -152,15 +152,19 @@ export default async function HomePage() {
       )}
 
       {/* Featured story */}
-      {headline && (
-        <Link href="/statistics" className="mt-4 block rounded-2xl border border-pitch-border bg-pitch-surface p-4 hover:border-slate-300">
-          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
-            <Newspaper size={13} /> Featured Story
-          </div>
-          <p className="mt-1.5 text-sm font-semibold text-slate-900">"{headline}"</p>
-          <span className="mt-1 inline-block text-xs font-semibold text-emerald-700">Read more →</span>
-        </Link>
-      )}
+      <Link href="/statistics" className="mt-4 block rounded-2xl border border-pitch-border bg-pitch-surface p-4 hover:border-slate-300">
+        <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-emerald-700">
+          <Newspaper size={13} /> Featured Story
+        </div>
+        {headline ? (
+          <>
+            <p className="mt-1.5 text-sm font-semibold text-slate-900">"{headline}"</p>
+            <span className="mt-1 inline-block text-xs font-semibold text-emerald-700">Read more →</span>
+          </>
+        ) : (
+          <p className="mt-1.5 text-sm text-slate-500">No story yet — check back after Gameweek 1 is completed.</p>
+        )}
+      </Link>
 
       {/* Quick cards — Biggest Movers sits between the other two */}
       <div className="mt-4 grid grid-cols-3 gap-2">
@@ -186,14 +190,18 @@ export default async function HomePage() {
       </div>
 
       {/* Live fixtures */}
-      {liveCount > 0 && (
-        <Link href="/fixtures" className="mt-4 flex items-center justify-between rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 hover:bg-rose-100">
-          <span className="flex items-center gap-2 text-sm font-bold text-rose-700">
-            <Radio size={16} className="animate-pulse" /> {liveCount} matches live
-          </span>
-          <span className="text-xs font-semibold text-rose-700">View →</span>
-        </Link>
-      )}
+      <Link
+        href="/fixtures"
+        className={`mt-4 flex items-center justify-between rounded-2xl border px-4 py-3 ${
+          liveCount > 0 ? "border-rose-200 bg-rose-50 hover:bg-rose-100" : "border-pitch-border bg-pitch-surface hover:border-slate-300"
+        }`}
+      >
+        <span className={`flex items-center gap-2 text-sm font-bold ${liveCount > 0 ? "text-rose-700" : "text-slate-700"}`}>
+          <Radio size={16} className={liveCount > 0 ? "animate-pulse" : "text-slate-400"} />
+          {liveCount > 0 ? `${liveCount} matches live` : "No live matches right now"}
+        </span>
+        <span className={`text-xs font-semibold ${liveCount > 0 ? "text-rose-700" : "text-emerald-700"}`}>View →</span>
+      </Link>
 
       {/* League snapshot */}
       <div className="mt-4 rounded-2xl border border-pitch-border bg-pitch-surface p-4">
