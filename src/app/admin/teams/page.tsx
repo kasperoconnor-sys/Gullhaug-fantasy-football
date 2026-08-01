@@ -13,6 +13,8 @@ export default function AdminTeamsPage() {
   const [league, setLeague] = useState("");
   const [isGullhaug, setIsGullhaug] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   async function load() {
     const { data } = await supabase.from("teams").select("*").order("name");
@@ -24,8 +26,20 @@ export default function AdminTeamsPage() {
   }, []);
 
   async function addTeam() {
-    if (!name.trim() || !shortName.trim()) return;
-    await supabase.from("teams").insert({ name, short_name: shortName, is_gullhaug: isGullhaug, league: league || null });
+    setError(null);
+    if (!name.trim() || !shortName.trim()) {
+      setError("Name and Short name are both required.");
+      return;
+    }
+    setSaving(true);
+    const { error: insertError } = await supabase
+      .from("teams")
+      .insert({ name: name.trim(), short_name: shortName.trim(), is_gullhaug: isGullhaug, league: league.trim() || null });
+    setSaving(false);
+    if (insertError) {
+      setError(insertError.message);
+      return;
+    }
     setName("");
     setShortName("");
     setLeague("");
@@ -34,7 +48,11 @@ export default function AdminTeamsPage() {
   }
 
   async function removeTeam(id: string) {
-    await supabase.from("teams").delete().eq("id", id);
+    const { error: deleteError } = await supabase.from("teams").delete().eq("id", id);
+    if (deleteError) {
+      setError(deleteError.message);
+      return;
+    }
     load();
   }
 
@@ -50,9 +68,10 @@ export default function AdminTeamsPage() {
           <input type="checkbox" checked={isGullhaug} onChange={(e) => setIsGullhaug(e.target.checked)} />
           Gullhaug team
         </label>
-        <button onClick={addTeam} className="flex items-center gap-1 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
-          <Plus size={14} /> Add
+        <button onClick={addTeam} disabled={saving} className="flex items-center gap-1 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400 disabled:opacity-50">
+          <Plus size={14} /> {saving ? "Adding…" : "Add"}
         </button>
+        {error && <p className="w-full text-sm text-rose-400">{error}</p>}
       </div>
 
       {!loading && (
@@ -68,6 +87,7 @@ export default function AdminTeamsPage() {
               </button>
             </div>
           ))}
+          {teams.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">No teams yet.</p>}
         </div>
       )}
     </div>

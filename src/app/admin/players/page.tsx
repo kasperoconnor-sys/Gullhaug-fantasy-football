@@ -13,6 +13,8 @@ export default function AdminPlayersPage() {
   const [teamId, setTeamId] = useState("");
   const [position, setPosition] = useState<PlayerPosition>("GK");
   const [price, setPrice] = useState("5.0");
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   async function load() {
     const [{ data: p }, { data: t }] = await Promise.all([
@@ -28,14 +30,37 @@ export default function AdminPlayersPage() {
   }, []);
 
   async function addPlayer() {
-    if (!name.trim() || !teamId) return;
-    await supabase.from("players").insert({ name, team_id: teamId, position, price: parseFloat(price) });
+    setError(null);
+    if (!name.trim()) {
+      setError("Player name is required.");
+      return;
+    }
+    if (!teamId) {
+      setError("Add a team first before adding players.");
+      return;
+    }
+    const priceNum = parseFloat(price);
+    if (isNaN(priceNum) || priceNum <= 0) {
+      setError("Price must be a number greater than 0.");
+      return;
+    }
+    setSaving(true);
+    const { error: insertError } = await supabase.from("players").insert({ name: name.trim(), team_id: teamId, position, price: priceNum });
+    setSaving(false);
+    if (insertError) {
+      setError(insertError.message);
+      return;
+    }
     setName("");
     load();
   }
 
   async function removePlayer(id: string) {
-    await supabase.from("players").update({ is_active: false }).eq("id", id);
+    const { error: updateError } = await supabase.from("players").update({ is_active: false }).eq("id", id);
+    if (updateError) {
+      setError(updateError.message);
+      return;
+    }
     load();
   }
 
@@ -51,6 +76,7 @@ export default function AdminPlayersPage() {
         <div>
           <label className="text-xs text-slate-500">Team</label>
           <select value={teamId} onChange={(e) => setTeamId(e.target.value)} className="mt-1 block rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-white outline-none focus:border-violet-500">
+            {teams.length === 0 && <option value="">No teams yet</option>}
             {teams.map((t) => (
               <option key={t.id} value={t.id}>{t.name}</option>
             ))}
@@ -68,9 +94,10 @@ export default function AdminPlayersPage() {
           <label className="text-xs text-slate-500">Price (M)</label>
           <input type="number" step="0.5" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-1 block w-24 rounded-lg border border-pitch-border bg-pitch px-3 py-2 text-sm text-white outline-none focus:border-violet-500" />
         </div>
-        <button onClick={addPlayer} className="flex items-center gap-1 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400">
-          <Plus size={14} /> Add
+        <button onClick={addPlayer} disabled={saving} className="flex items-center gap-1 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-emerald-400 disabled:opacity-50">
+          <Plus size={14} /> {saving ? "Adding…" : "Add"}
         </button>
+        {error && <p className="w-full text-sm text-rose-400">{error}</p>}
       </div>
 
       <div className="mt-4 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
@@ -84,6 +111,7 @@ export default function AdminPlayersPage() {
             </button>
           </div>
         ))}
+        {players.length === 0 && <p className="px-4 py-3 text-sm text-slate-500">No players yet.</p>}
       </div>
     </div>
   );
