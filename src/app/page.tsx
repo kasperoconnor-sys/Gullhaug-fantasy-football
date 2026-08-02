@@ -174,9 +174,13 @@ export default async function HomePage() {
           <span className="text-[11px] font-semibold text-slate-700">Biggest Movers</span>
           <div className="mt-1.5 space-y-1">
             {movers.slice(0, 2).map((m, i) => (
-              <div key={i} className="flex items-center justify-center gap-1 text-[11px]">
-                <span className="truncate text-slate-900">{m.team}</span>
-                <span className={`flex items-center gap-0.5 font-bold ${m.change > 0 ? "text-emerald-600" : m.change < 0 ? "text-rose-600" : "text-slate-400"}`}>
+              <div key={i} className="flex items-center justify-between gap-1">
+                <span className="truncate text-[11px] text-slate-900">{m.team}</span>
+                <span
+                  className={`flex shrink-0 items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
+                    m.change > 0 ? "bg-emerald-100 text-emerald-700" : m.change < 0 ? "bg-rose-100 text-rose-700" : "bg-slate-100 text-slate-500"
+                  }`}
+                >
                   {m.change > 0 ? <TrendingUp size={11} /> : m.change < 0 ? <TrendingDown size={11} /> : null}
                   {m.change > 0 ? `+${m.change}` : m.change}
                 </span>
