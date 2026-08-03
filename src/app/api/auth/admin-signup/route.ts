@@ -19,10 +19,15 @@ export async function POST(request: Request) {
   if (!email || !password || !display_name || !team_name) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
+  if (password.length < 6) {
+    return NextResponse.json({ error: "Password must be at least 6 characters." }, { status: 400 });
+  }
+
+  const cleanEmail = email.trim().toLowerCase();
 
   const db = createServiceClient();
   const { data, error } = await db.auth.admin.createUser({
-    email,
+    email: cleanEmail,
     password,
     email_confirm: true,
     user_metadata: { display_name, team_name },

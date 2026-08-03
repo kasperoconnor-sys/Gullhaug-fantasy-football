@@ -20,20 +20,9 @@ export default function RulesPage() {
           items={[
             "Valid formations: 3-4-3, 3-5-2, 4-4-2, 4-3-3, 4-5-1, 5-3-2, 5-4-1.",
             "Every formation needs at least 3 defenders, 3 midfielders, and 1 forward.",
-            "Managers choose a Captain and Vice Captain from their Starting XI.",
+            "Managers choose a Captain and Vice Captain from their Starting XI before each gameweek's deadline.",
             "Captain's points are doubled. If the Captain doesn't play, the Vice Captain's points are doubled instead.",
             "4 substitutes on the bench, in order. Automatic substitutions happen if a starter doesn't play.",
-          ]}
-        />
-      </Section>
-
-      <Section title="Rolling Captain & Rolling Substitutions">
-        <List
-          items={[
-            "Captain can be changed during a live gameweek, but only to a player whose match hasn't kicked off yet.",
-            "Once a player's match starts, they can no longer become Captain.",
-            "Substitutions can be made during a live gameweek: a starter (even one who already played) can be swapped for a bench player whose match hasn't started yet.",
-            "Every substitution must still leave a valid formation.",
           ]}
         />
       </Section>
@@ -102,6 +91,8 @@ export default function RulesPage() {
       <Section title="Transfers">
         <List
           items={[
+            "Unlimited free transfers before the Gameweek 1 deadline — build and rebuild your squad freely with no cost.",
+            "Once Gameweek 1's deadline passes, normal transfer rules begin.",
             "1 free transfer every gameweek.",
             "Unused free transfers roll over, up to a maximum of 3 saved.",
             "Extra transfers beyond your free ones cost −3 points each.",

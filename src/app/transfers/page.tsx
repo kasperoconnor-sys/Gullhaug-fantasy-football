@@ -8,6 +8,7 @@ import { Player, PlayerPosition } from "@/types";
 import StatCard from "@/components/StatCard";
 import FDRBadge from "@/components/FDRBadge";
 import { ArrowRightLeft, Search, GitCompare, Gem } from "lucide-react";
+import { teamAbbrev } from "@/lib/teamAbbrev";
 
 interface EnrichedPlayer extends Player {
   ownershipPct: number;
@@ -39,6 +40,7 @@ export default function TransfersPage() {
   const [search, setSearch] = useState("");
   const [clubFilter, setClubFilter] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("form");
+  const [isPreSeason, setIsPreSeason] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -58,6 +60,9 @@ export default function TransfersPage() {
 
       const { data: gw } = await supabase.from("gameweeks").select("*").in("status", ["upcoming", "open"]).order("number").limit(1).maybeSingle();
       if (gw) setGameweekId(gw.id);
+
+      const { data: gw1 } = await supabase.from("gameweeks").select("deadline_at").eq("number", 1).maybeSingle();
+      setIsPreSeason(gw1 ? new Date(gw1.deadline_at).getTime() > Date.now() : false);
 
       const [{ count: managerCount }, { data: pool }, { data: squadRows }, { data: ownershipRows }, { data: fpRows }, { data: fixtures }] =
         await Promise.all([
@@ -124,7 +129,7 @@ export default function TransfersPage() {
   }, [allPlayers, squad, playerOut, search, clubFilter, sortKey]);
 
   const budgetAfterSwap = playerOut && playerIn ? budgetRemaining + playerOut.price - playerIn.price : budgetRemaining;
-  const willBeFree = freeTransfers > 0;
+  const willBeFree = isPreSeason || freeTransfers > 0;
   const pointCost = willBeFree ? 0 : 3;
 
   async function confirmTransfer() {
@@ -161,9 +166,17 @@ export default function TransfersPage() {
     <div className="mx-auto max-w-2xl px-4 pb-24 pt-6">
       <h1 className="font-display text-2xl font-black text-slate-900">Transfers</h1>
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        <StatCard label="Free transfers" value={freeTransfers} accent="emerald" />
-        <StatCard label="Budget remaining" value={`${budgetRemaining.toFixed(1)}M`} accent="violet" />
+      {isPreSeason && (
+        <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-center text-xs font-bold text-emerald-700">
+          Unlimited free transfers until the Gameweek 1 deadline — build your squad freely, no cost.
+        </div>
+      )}
+
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <StatCard label="Squad value" value={`${squad.reduce((s, p) => s + p.price, 0).toFixed(1)}M`} accent="emerald" />
+        <StatCard label="In the bank" value={`${budgetRemaining.toFixed(1)}M`} />
+        <StatCard label="Free transfers" value={isPreSeason ? "∞" : freeTransfers} accent="emerald" />
+        <StatCard label="Extra transfer cost" value={isPreSeason ? "Free" : "-3 pts"} />
       </div>
       <p className="mt-2 text-xs text-slate-500">
         Unused transfers roll over (max 3 saved). Extra transfers beyond your free ones cost 3 points each.
@@ -230,6 +243,7 @@ export default function TransfersPage() {
           <div className="mt-2 text-sm text-slate-500">Budget after swap: {budgetAfterSwap.toFixed(1)}M</div>
           <div className="text-sm text-slate-500">
             Cost: {willBeFree ? "Free transfer" : `-${pointCost} points (no free transfers left)`}
+            {isPreSeason && " — unlimited before Gameweek 1"}
           </div>
           {message && <p className="mt-2 text-xs text-emerald-600">{message}</p>}
           <button
@@ -280,7 +294,7 @@ function RichPlayerRow({
               {player.isDifferential && <Gem size={12} className="text-emerald-700" />}
             </div>
             <div className="text-xs text-slate-500">
-              {player.team?.name} · {player.ownershipPct.toFixed(1)}% owned · form {player.form.toFixed(1)}
+              {player.team?.name} ({teamAbbrev(player.team?.name)}) · {player.ownershipPct.toFixed(1)}% owned · form {player.form.toFixed(1)}
             </div>
           </div>
         </div>

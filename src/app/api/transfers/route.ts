@@ -29,9 +29,15 @@ export async function POST(request: Request) {
   const newBudget = Math.round((team.budget_remaining + playerOut.price - playerIn.price) * 10) / 10;
   if (newBudget < 0) return NextResponse.json({ error: "Not enough budget for this transfer." }, { status: 400 });
 
-  const wasFree = team.free_transfers > 0;
+  // Unlimited free transfers before the Gameweek 1 deadline.
+  const { data: gw1 } = await supabase.from("gameweeks").select("deadline_at").eq("number", 1).maybeSingle();
+  const preSeason = gw1 ? new Date(gw1.deadline_at).getTime() > Date.now() : false;
+
+  const wasFree = preSeason || team.free_transfers > 0;
   const pointCost = wasFree ? 0 : settings?.extra_transfer_cost ?? 3;
-  const newFreeTransfers = wasFree
+  const newFreeTransfers = preSeason
+    ? team.free_transfers // don't touch the bank during unlimited pre-season transfers
+    : wasFree
     ? Math.max(0, team.free_transfers - 1)
     : team.free_transfers; // paid transfers don't touch the free-transfer bank
 

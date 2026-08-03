@@ -10,6 +10,7 @@ export interface Team {
   short_name: string;
   is_gullhaug: boolean;
   league?: string | null;
+  color?: string | null;
 }
 
 export interface Player {

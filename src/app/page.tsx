@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import DeadlineCountdown from "@/components/DeadlineCountdown";
 import Link from "next/link";
-import { ArrowRight, Newspaper, TrendingUp, TrendingDown, Radio } from "lucide-react";
+import { ArrowRight, Newspaper, TrendingUp, TrendingDown, Radio, BookOpen } from "lucide-react";
 
 export const revalidate = 30;
 
@@ -164,6 +164,14 @@ export default async function HomePage() {
         ) : (
           <p className="mt-1.5 text-sm text-slate-500">No story yet — check back after Gameweek 1 is completed.</p>
         )}
+      </Link>
+
+      {/* Rules & Scoring */}
+      <Link href="/rules" className="mt-4 flex items-center justify-between rounded-2xl border border-pitch-border bg-pitch-surface px-4 py-3 hover:border-slate-300">
+        <span className="flex items-center gap-2 text-sm font-bold text-slate-900">
+          <BookOpen size={16} className="text-slate-500" /> Rules & Scoring
+        </span>
+        <span className="text-xs font-semibold text-emerald-700">View →</span>
       </Link>
 
       {/* Quick cards — Biggest Movers sits between the other two */}

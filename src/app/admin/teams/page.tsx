@@ -11,6 +11,7 @@ export default function AdminTeamsPage() {
   const [name, setName] = useState("");
   const [shortName, setShortName] = useState("");
   const [league, setLeague] = useState("");
+  const [color, setColor] = useState("#334155");
   const [isGullhaug, setIsGullhaug] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +35,7 @@ export default function AdminTeamsPage() {
     setSaving(true);
     const { error: insertError } = await supabase
       .from("teams")
-      .insert({ name: name.trim(), short_name: shortName.trim(), is_gullhaug: isGullhaug, league: league.trim() || null });
+      .insert({ name: name.trim(), short_name: shortName.trim(), is_gullhaug: isGullhaug, league: league.trim() || null, color });
     setSaving(false);
     if (insertError) {
       setError(insertError.message);
@@ -43,6 +44,7 @@ export default function AdminTeamsPage() {
     setName("");
     setShortName("");
     setLeague("");
+    setColor("#334155");
     setIsGullhaug(false);
     load();
   }
@@ -64,6 +66,10 @@ export default function AdminTeamsPage() {
         <Field label="Name" value={name} onChange={setName} />
         <Field label="Short name" value={shortName} onChange={setShortName} />
         <Field label="League / Division" value={league} onChange={setLeague} placeholder="e.g. Vestfold 1. div" />
+        <div>
+          <label className="text-xs text-slate-500">Team colour</label>
+          <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="mt-1 block h-9 w-14 rounded-lg border border-pitch-border bg-pitch p-1" />
+        </div>
         <label className="flex items-center gap-2 pb-2 text-sm text-slate-700">
           <input type="checkbox" checked={isGullhaug} onChange={(e) => setIsGullhaug(e.target.checked)} />
           Gullhaug team
@@ -78,7 +84,8 @@ export default function AdminTeamsPage() {
         <div className="mt-4 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
           {teams.map((t: any) => (
             <div key={t.id} className="flex items-center justify-between px-4 py-2.5">
-              <span className="text-sm text-slate-900">
+              <span className="flex items-center gap-2 text-sm text-slate-900">
+                <span className="h-3 w-3 rounded-full border border-pitch-border" style={{ backgroundColor: t.color || "#94a3b8" }} />
                 {t.name} ({t.short_name}) {t.is_gullhaug && <span className="text-emerald-600">★ Gullhaug</span>}
                 {t.league && <span className="ml-2 text-xs text-slate-500">— {t.league}</span>}
               </span>
