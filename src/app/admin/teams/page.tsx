@@ -58,6 +58,12 @@ export default function AdminTeamsPage() {
     load();
   }
 
+  async function updateTeamColor(id: string, newColor: string) {
+    setTeams((prev) => prev.map((t: any) => (t.id === id ? { ...t, color: newColor } : t)));
+    const { error: updateError } = await supabase.from("teams").update({ color: newColor }).eq("id", id);
+    if (updateError) setError(updateError.message);
+  }
+
   return (
     <div>
       <h1 className="font-display text-2xl font-black text-slate-900">Teams</h1>
@@ -80,12 +86,20 @@ export default function AdminTeamsPage() {
         {error && <p className="w-full text-sm text-rose-600">{error}</p>}
       </div>
 
+      <p className="mt-4 text-xs text-slate-500">Tap a colour swatch below to change any existing team's colour instantly — no need to re-add anything.</p>
+
       {!loading && (
-        <div className="mt-4 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
+        <div className="mt-2 divide-y divide-pitch-border rounded-xl border border-pitch-border bg-pitch-surface">
           {teams.map((t: any) => (
             <div key={t.id} className="flex items-center justify-between px-4 py-2.5">
               <span className="flex items-center gap-2 text-sm text-slate-900">
-                <span className="h-3 w-3 rounded-full border border-pitch-border" style={{ backgroundColor: t.color || "#94a3b8" }} />
+                <input
+                  type="color"
+                  value={t.color || "#94a3b8"}
+                  onChange={(e) => updateTeamColor(t.id, e.target.value)}
+                  className="h-6 w-8 cursor-pointer rounded border border-pitch-border p-0"
+                  title="Change team colour"
+                />
                 {t.name} ({t.short_name}) {t.is_gullhaug && <span className="text-emerald-600">★ Gullhaug</span>}
                 {t.league && <span className="ml-2 text-xs text-slate-500">— {t.league}</span>}
               </span>
